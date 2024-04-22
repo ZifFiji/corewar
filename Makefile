@@ -10,9 +10,9 @@ SRC += ./src/corewar.c
 
 OBJ = $(SRC:.c=.o)
 
-SRC_T = ./src/amazed.c \
+SRC_T = ./src/corewar.c \
 
-NAME =	corewar 
+NAME =	corewar
 
 CFLAGS = -W -Wall -Wextra -Wno-deprecated-declarations
 
@@ -29,9 +29,10 @@ DIRT = tests/tests.c \
 
 LDLIBS = -L./lib/ -lmy
 
-all: compile $(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJ)
+	make -C $(DIRLIB)
 	$(CC) -o $(NAME) $(OBJ) $(LDLIBS) $(CFLAGS) $(CPPFLAGS)
 
 clean:
@@ -46,12 +47,10 @@ fclean: clean
 	rm -f $(NAME)
 	make clean -C $(DIRLIB)
 
-re: fclean compile all
+re: fclean all
 
-compile:
+unit_tests:
 	make -C $(DIRLIB)
-
-unit_tests: compile
 	gcc -o unit_tests $(SRC_T) $(DIRT) $(LDLIBS) $(CPPFLAGS) $(CRITFLAGS)
 
 tests_run: unit_tests
@@ -59,7 +58,7 @@ tests_run: unit_tests
 	gcovr --exclude tests/
 	gcovr --exclude tests/ --branches
 
-debug: all
-	$(CC) -g $(SRC) $(LIB) $(NAMELIB) $(CFLAGS) $(CPPFLAGS)
+debug:	CPPFLAGS	+= -g3
+debug:	re
 
-.PHONY: all clean debug fclean re compile unit_tests tests_run
+.PHONY: all clean debug fclean re unit_tests tests_run

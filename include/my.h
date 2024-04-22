@@ -5,11 +5,11 @@
 ** my
 */
 
-#ifndef MY_H 
+#ifndef MY_H
     #define MY_H
 
-    #define SUCCESS 0    
-    #define ERROR 84    
+    #define SUCCESS 0
+    #define ERROR 84
 
 int corewar(void);
 
