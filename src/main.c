@@ -9,5 +9,5 @@
 
 int main(int ac, char **av, char **env)
 {
-    return corewar();
+    return corewar(ac, av, env);
 }

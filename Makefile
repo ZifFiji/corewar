@@ -7,6 +7,7 @@
 
 SRC = ./src/main.c
 SRC += ./src/corewar.c
+SRC += ./src/display/display_help.c
 
 OBJ = $(SRC:.c=.o)
 
