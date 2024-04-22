@@ -1,0 +1,11 @@
+robot factory : compiler champion
+
+corewar : executer champion (bytecode)
+
+live n'a pas de coding byte il faut connaitre sa taille
+
+execution au début puis attend
+
+op.h -> arena size, number of cycle
+
+gérer le load, chaque champion a equidistance
