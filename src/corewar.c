@@ -7,6 +7,8 @@
 
 #include "my.h"
 
+#include <stdlib.h>
+
 int error_handling(int ac, char **av, char **env)
 {
     if (ac <= 2 || !av || !av[1] || !env)
@@ -22,8 +24,9 @@ int error_handling(int ac, char **av, char **env)
 
 int corewar(int ac, char **av, char **env)
 {
+    corewar_t *corewar = init_corewar(av);
+
     // if (error_handling(ac, av, env) == ERROR)
     //     return ERROR;
-    parser(av[1]);
     return SUCCESS;
 }
