@@ -9,7 +9,7 @@
 
 int error_handling(int ac, char **av, char **env)
 {
-    if (ac < 2 || !av || !av[1] || !env)
+    if (ac <= 2 || !av || !av[1] || !env)
         return ERROR;
     if (my_strcmp(av[1], "-h") == 0) {
         display_help();
