@@ -22,7 +22,8 @@ int error_handling(int ac, char **av, char **env)
 
 int corewar(int ac, char **av, char **env)
 {
-    if (error_handling(ac, av, env) == ERROR)
-        return ERROR;
+    // if (error_handling(ac, av, env) == ERROR)
+    //     return ERROR;
+    parser(av[1]);
     return SUCCESS;
 }
