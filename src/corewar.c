@@ -17,16 +17,15 @@ int error_handling(int ac, char **av, char **env)
         display_help();
         return SUCCESS;
     }
-    if (ac == 2 || ac > 4)
-        return ERROR;
     return SUCCESS;
 }
 
 int corewar(int ac, char **av, char **env)
 {
-    corewar_t *corewar = init_corewar(av);
+    corewar_t *corewar = NULL;
 
-    // if (error_handling(ac, av, env) == ERROR)
-    //     return ERROR;
+    if (error_handling(ac, av, env) == ERROR)
+        return ERROR;
+    corewar = init_corewar(av);
     return SUCCESS;
 }

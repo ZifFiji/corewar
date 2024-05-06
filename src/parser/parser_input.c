@@ -21,22 +21,36 @@ int check_nbr_cycles(char *nbr_cycles)
 }
 
 static
-int handle_flags(char **raw_input, int *idx, input_t **input, corewar_t *c)
+int handle_optional_flags(char **arr, int *idx, input_t **input, corewar_t *c)
 {
-    if (my_strcmp(raw_input[(*idx)], "-dump") == 0)
+    if (my_strcmp(arr[(*idx)], "-n") == 0) {
+        (*idx)++;
+        if (check_nbr_cycles(arr[(*idx)]) == ERROR)
+            return ERROR;
+        else {
+            input[c->nbr_champions]->prog_number = my_getnbr(arr[(*idx)]);
+            (*idx)++;
+        }
+    }
+    if (my_strcmp(arr[(*idx)], "-a") == 0) {
+        (*idx)++;
+        if (check_nbr_cycles(arr[(*idx)]) == ERROR)
+            return ERROR;
+        else {
+            input[c->nbr_champions - 1]->load_adress = my_getnbr(arr[(*idx)]);
+            (*idx)++;
+        }
+    }
+    return SUCCESS;
+}
+
+static
+int handle_flags(char **arr, int *idx, input_t **input, corewar_t *c)
+{
+    if (my_strcmp(arr[(*idx)], "-dump") == 0)
         return ERROR;
-    if (my_strcmp(raw_input[(*idx)], "-n") == 0) {
-        if (check_nbr_cycles(raw_input[++(*idx)]) == ERROR)
-            return ERROR;
-        else
-            input[c->nbr_champions]->prog_number = my_getnbr(raw_input[(*idx)++]); 
-    }
-    if (my_strcmp(raw_input[(*idx)], "-a") == 0) {
-        if (check_nbr_cycles(raw_input[++(*idx)]) == ERROR)
-            return ERROR;
-        else
-            input[c->nbr_champions - 1]->load_adress = my_getnbr(raw_input[(*idx)++]); 
-    }
+    if (handle_optional_flags(arr, idx, input, c) == ERROR)
+        return ERROR;
     return SUCCESS;
 }
 
@@ -44,12 +58,25 @@ static
 int handle_dump(corewar_t *c, char **raw_input, int *idx)
 {
     if (my_strcmp(raw_input[(*idx)], "-dump") == 0) {
-        if (check_nbr_cycles(raw_input[++(*idx)]) == ERROR)
+        (*idx)++;
+        if (check_nbr_cycles(raw_input[(*idx)]) == ERROR)
             return ERROR;
-        else
-            c->nbr_dump_cycles = my_getnbr(raw_input[(*idx)++]);
+        else {
+            c->nbr_dump_cycles = my_getnbr(raw_input[(*idx)]);
+            (*idx)++;
+        }
     }
     return SUCCESS;
+}
+
+static
+void realloc_input_arr(corewar_t *c, input_t **input)
+{
+    if (c->nbr_champions > 1) {
+        input = realloc(input, sizeof(input_t *) * (c->nbr_champions + 1));
+        input[c->nbr_champions - 1] = malloc(sizeof(input_t));
+        input[c->nbr_champions] = NULL;
+    }
 }
 
 static
@@ -69,16 +96,13 @@ input_t **parser_input(corewar_t *c, char **raw_input)
     if (handle_dump(c, raw_input, &idx) == ERROR)
         return NULL;
     while (raw_input[idx]) {
-        if (c->nbr_champions > 1) {
-            input = realloc(input, sizeof(input_t *) * (c->nbr_champions + 1));
-            input[c->nbr_champions - 1] = malloc(sizeof(input_t));
-            input[c->nbr_champions] = NULL;
-        }
+        realloc_input_arr(c, input);
         if (handle_flags(raw_input, &idx, input, c) == ERROR)
             return NULL;
         if (handle_file(raw_input[idx]) == ERROR)
             return NULL;
-        input[c->nbr_champions - 1]->file_path = my_strdup(raw_input[idx++]);
+        input[c->nbr_champions - 1]->file_path = my_strdup(raw_input[idx]);
+        idx ++;
         c->nbr_champions += 1;
     }
     return input;

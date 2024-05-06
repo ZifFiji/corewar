@@ -30,7 +30,8 @@ char *get_file(char *file_path)
 void get_header(char *file, champions_t *c)
 {
     my_strncpy(c->header.prog_name, &file[4], PROG_NAME_LENGTH);
-    my_strncpy(c->header.comment, &file[12 + PROG_NAME_LENGTH], COMMENT_LENGTH);
+    my_strncpy(c->header.comment,
+        &file[12 + PROG_NAME_LENGTH], COMMENT_LENGTH);
     c->header.prog_size = file[11 + PROG_NAME_LENGTH];
     printf("%s\n", c->header.prog_name);
     printf("%s\n", c->header.comment);

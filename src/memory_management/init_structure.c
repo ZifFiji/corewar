@@ -12,21 +12,21 @@
 
 champions_t **init_champion(size_t nbr_champions)
 {
-    champions_t **champion = malloc(sizeof(champions_t *) * (nbr_champions + 1));
+    champions_t **champ = malloc(sizeof(champions_t *) * (nbr_champions + 1));
 
-    if (!champion)
+    if (!champ)
         return NULL;
-    for (size_t champ = 0; champ < nbr_champions; champ ++) {
-        champion[champ] = malloc(sizeof(champions_t));
-        for (size_t i = 0; i < PROG_NAME_LENGTH; i ++)
-            champion[champ]->header.prog_name[i] = 0;
-        for (size_t i = 0; i < COMMENT_LENGTH; i ++)
-            champion[champ]->header.comment[i] = 0;
-        champion[champ]->header.prog_size = 0;
-        champion[champ]->header.magic = 0;
-        champion[champ]->instruction = NULL;
+    for (size_t i = 0; i < nbr_champions; i ++) {
+        champ[i] = malloc(sizeof(champions_t));
+        for (size_t j = 0; j < PROG_NAME_LENGTH; j ++)
+            champ[i]->header.prog_name[j] = 0;
+        for (size_t j = 0; j < COMMENT_LENGTH; j ++)
+            champ[i]->header.comment[j] = 0;
+        champ[i]->header.prog_size = 0;
+        champ[i]->header.magic = 0;
+        champ[i]->instruction = NULL;
     }
-    return champion;
+    return champ;
 }
 
 corewar_t *init_corewar(char **raw_input)
@@ -40,8 +40,10 @@ corewar_t *init_corewar(char **raw_input)
     c->nbr_dump_cycles = 0;
     c->nbr_champions = 1;
     c->input = parser_input(c, &raw_input[1]);
-    if (!c->input || c->nbr_champions == 1 || c->nbr_champions > 4)
+    if (!c->input || c->nbr_champions == 1 || c->nbr_champions > 4) {
+        printf("There is an error\n");
         return NULL;
+    }
     c->champions = parse_files(c, c->input);
     return c;
 }
