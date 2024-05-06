@@ -40,10 +40,10 @@ corewar_t *init_corewar(char **raw_input)
     c->nbr_dump_cycles = 0;
     c->nbr_champions = 1;
     c->input = parser_input(c, &raw_input[1]);
-    if (!c->input || c->nbr_champions == 1 || c->nbr_champions > 4) {
-        printf("There is an error\n");
+    if (!c->input || c->nbr_champions == 1 || c->nbr_champions > 4)
         return NULL;
-    }
     c->champions = parse_files(c, c->input);
+    if (!c->champions)
+        return NULL;
     return c;
 }

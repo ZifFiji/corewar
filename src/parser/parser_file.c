@@ -53,5 +53,5 @@ champions_t **parse_files(corewar_t *corewar, input_t **input)
         get_header(file, c[i]);
         free(file);
     }
-    return 0;
+    return c;
 }

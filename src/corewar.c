@@ -27,5 +27,7 @@ int corewar(int ac, char **av, char **env)
     if (error_handling(ac, av, env) == ERROR)
         return ERROR;
     corewar = init_corewar(av);
+    if (!corewar)
+        return ERROR;
     return SUCCESS;
 }
