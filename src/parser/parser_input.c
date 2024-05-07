@@ -7,6 +7,7 @@
 
 #include "my.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 
 static
@@ -70,13 +71,16 @@ int handle_dump(corewar_t *c, char **raw_input, int *idx)
 }
 
 static
-void realloc_input_arr(corewar_t *c, input_t **input)
+input_t **realloc_input_arr(corewar_t *c, input_t **input)
 {
     if (c->nbr_champions > 1) {
         input = realloc(input, sizeof(input_t *) * (c->nbr_champions + 1));
-        input[c->nbr_champions - 1] = malloc(sizeof(input_t));
+        if (!(*input))
+            return NULL;
+        input[c->nbr_champions - 1] = init_input();
         input[c->nbr_champions] = NULL;
     }
+    return input;
 }
 
 static
@@ -92,11 +96,13 @@ input_t **parser_input(corewar_t *c, char **raw_input)
     int idx = 0;
     input_t **input = malloc(sizeof(input_t *) * (c->nbr_champions + 1));
 
-    input[c->nbr_champions - 1] = malloc(sizeof(input_t));
+    input[c->nbr_champions - 1] = init_input();
     if (handle_dump(c, raw_input, &idx) == ERROR)
         return NULL;
     while (raw_input[idx]) {
-        realloc_input_arr(c, input);
+        input = realloc_input_arr(c, input);
+        if (!input)
+            return NULL;
         if (handle_flags(raw_input, &idx, input, c) == ERROR)
             return NULL;
         if (handle_file(raw_input[idx]) == ERROR)

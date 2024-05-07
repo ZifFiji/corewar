@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
+static
 char *get_file(char *file_path)
 {
     struct stat s;
@@ -27,6 +28,40 @@ char *get_file(char *file_path)
     return file;
 }
 
+static
+instructions_t **realloc_instruction_arr(instructions_t **i, champions_t *c)
+{
+    if (c->nbr_instruction > 0) {
+        i = realloc(i, sizeof(instructions_t *) * (c->nbr_instruction + 2));
+        if (!i)
+            return NULL;
+        i[c->nbr_instruction] = init_instruction();
+        i[c->nbr_instruction + 1] = NULL;
+    }
+    return i;
+}
+
+static
+int get_instructions(char *file, champions_t *c)
+{
+    int coding_byte = 0;
+    int idx = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
+
+    c->instruction = malloc(sizeof(instructions_t *) * 2);
+    c->instruction[c->nbr_instruction] = init_instruction();
+    // while (file[idx]) {
+        c->instruction = realloc_instruction_arr(c->instruction, c);
+        coding_byte = file[idx];
+        idx++;
+        c->instruction[c->nbr_instruction]->\
+        instruction = my_strdup(op_tab[coding_byte - 1].mnemonique);
+        c->nbr_instruction++;
+    // }
+    printf("%s\n", c->instruction[c->nbr_instruction - 1]->instruction);
+    return coding_byte;
+}
+
+static
 void get_header(char *file, champions_t *c)
 {
     my_strncpy(c->header.prog_name, &file[4], PROG_NAME_LENGTH);
@@ -51,6 +86,7 @@ champions_t **parse_files(corewar_t *corewar, input_t **input)
         if (!file)
             return NULL;
         get_header(file, c[i]);
+        get_instructions(file, c[i]);
         free(file);
     }
     return c;

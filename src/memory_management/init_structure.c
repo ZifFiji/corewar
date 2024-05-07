@@ -25,8 +25,28 @@ champions_t **init_champion(size_t nbr_champions)
         champ[i]->header.prog_size = 0;
         champ[i]->header.magic = 0;
         champ[i]->instruction = NULL;
+        champ[i]->nbr_instruction = 0;
     }
     return champ;
+}
+
+instructions_t *init_instruction(void)
+{
+    instructions_t *new = malloc(sizeof(instructions_t));
+
+    new->instruction = NULL;
+    new->parameters = NULL;
+    return new;
+}
+
+input_t *init_input(void)
+{
+    input_t *new = malloc(sizeof(input_t));
+
+    new->file_path = NULL;
+    new->load_adress = 0;
+    new->prog_number = 0;
+    return new;
 }
 
 corewar_t *init_corewar(char **raw_input)

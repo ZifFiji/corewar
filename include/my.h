@@ -22,7 +22,8 @@ typedef struct instructions_s {
 } instructions_t;
 
 typedef struct champions_s {
-    instructions_t *instruction;
+    instructions_t **instruction;
+    size_t nbr_instruction;
     header_t header;
 } champions_t;
 
@@ -42,15 +43,22 @@ typedef struct corewar_s {
 } corewar_t;
 
 int corewar(int ac, char **av, char **env);
-void display_help(void);
+
+// PARSER
 champions_t **parse_files(corewar_t *corewar, input_t **input);
 input_t **parser_input(corewar_t *c, char **raw_input);
+
+// INITIALISATION
 champions_t **init_champion(size_t nbr_champions);
+instructions_t *init_instruction(void);
 corewar_t *init_corewar(char **raw_input);
+input_t *init_input(void);
+
+// DISPLAY
+void display_help(void);
 void display_champions(champions_t *champion);
 
 // LIBRARY
-
 int my_strlen(char const *str);
 int my_isdigit(char c);
 int my_getnbr(char *str);
