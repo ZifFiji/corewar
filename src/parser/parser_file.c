@@ -42,23 +42,37 @@ instructions_t **realloc_instruction_arr(instructions_t **i, champions_t *c)
 }
 
 static
-int get_instructions(char *file, champions_t *c)
+int check_mnemonique(char *mnemo)
 {
-    int coding_byte = 0;
+    if (my_strcmp(mnemo, "zjmp") == 0 ||
+        my_strcmp(mnemo, "live") == 0 ||
+        my_strcmp(mnemo, "lfork") == 0 ||
+        my_strcmp(mnemo, "fork") == 0)
+        return ERROR;
+    return SUCCESS;
+}
+
+static
+void get_instructions(char *file, champions_t *c)
+{
     int idx = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
 
     c->instruction = malloc(sizeof(instructions_t *) * 2);
     c->instruction[c->nbr_instruction] = init_instruction();
     // while (file[idx]) {
         c->instruction = realloc_instruction_arr(c->instruction, c);
-        coding_byte = file[idx];
-        idx++;
         c->instruction[c->nbr_instruction]->\
-        instruction = my_strdup(op_tab[coding_byte - 1].mnemonique);
+        instruction = my_strdup(op_tab[file[idx] - 1].mnemonique);
+        idx++;
+        if (check_mnemonique(c->instruction[c->nbr_instruction]->\
+        instruction) == SUCCESS) {
+            c->instruction[c->nbr_instruction]->coding_byte = file[idx];
+            idx++;
+        }
         c->nbr_instruction++;
     // }
     printf("%s\n", c->instruction[c->nbr_instruction - 1]->instruction);
-    return coding_byte;
+    printf("%x\n", c->instruction[c->nbr_instruction - 1]->coding_byte);
 }
 
 static
