@@ -7,7 +7,13 @@
 
 SRC = ./src/main.c
 SRC += ./src/corewar.c
+SRC += ./src/op.c
+SRC += ./src/parser/parser_file.c
+SRC += ./src/parser/parser_input.c
 SRC += ./src/display/display_help.c
+SRC += ./src/display/display_champions.c
+SRC += ./src/display/display_memory.c
+SRC += ./src/memory_management/init_structure.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -17,7 +23,7 @@ NAME =	corewar
 
 CFLAGS = -W -Wall -Wextra -Wno-deprecated-declarations
 
-CPPFLAGS = -I./include
+CPPFLAGS = -I./include -g3
 
 CRITFLAGS = --coverage -lcriterion
 

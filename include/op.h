@@ -5,8 +5,8 @@
 ** op
 */
 
-#ifndef _OP_H_
-    #define _OP_H_
+#ifndef OP_H_
+    #define OP_H_
 
     #define MEM_SIZE (6 * 1024)
     #define IDX_MOD 512 /* modulo of the index < */
