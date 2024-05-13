@@ -26,7 +26,10 @@ typedef struct champions_s {
     instructions_t **instruction;
     size_t nbr_instruction;
     header_t header;
+    uint8_t registers[REG_NUMBER];
     int idx;
+    size_t program_counter;
+    size_t carry;
 } champions_t;
 
 typedef struct input_s {
