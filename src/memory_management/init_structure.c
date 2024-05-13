@@ -48,6 +48,7 @@ instructions_t *init_instruction(void)
     new->instruction = NULL;
     new->coding_byte = 0;
     new->parameters = NULL;
+    new->type = NULL;
     return new;
 }
 
