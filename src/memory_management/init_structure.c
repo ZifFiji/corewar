@@ -11,6 +11,16 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+void init_header(champions_t **champ, size_t i)
+{
+    for (size_t j = 0; j < PROG_NAME_LENGTH; j ++)
+        champ[i]->header.prog_name[j] = 0;
+    for (size_t j = 0; j < COMMENT_LENGTH; j ++)
+        champ[i]->header.comment[j] = 0;
+    champ[i]->header.prog_size = 0;
+    champ[i]->header.magic = 0;
+}
+
 champions_t **init_champion(size_t nbr_champions)
 {
     champions_t **champ = malloc(sizeof(champions_t *) * (nbr_champions + 1));
@@ -19,14 +29,13 @@ champions_t **init_champion(size_t nbr_champions)
         return NULL;
     for (size_t i = 0; i < nbr_champions; i ++) {
         champ[i] = malloc(sizeof(champions_t));
-        for (size_t j = 0; j < PROG_NAME_LENGTH; j ++)
-            champ[i]->header.prog_name[j] = 0;
-        for (size_t j = 0; j < COMMENT_LENGTH; j ++)
-            champ[i]->header.comment[j] = 0;
-        champ[i]->header.prog_size = 0;
-        champ[i]->header.magic = 0;
+        for (int j = 0; j < REG_SIZE; j ++)
+            champ[i]->registers[j] = 0;
+        init_header(champ, i);
         champ[i]->instruction = NULL;
         champ[i]->nbr_instruction = 0;
+        champ[i]->program_counter = 0;
+        champ[i]->carry = 1;
         champ[i]->idx = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
     }
     return champ;
@@ -61,7 +70,7 @@ corewar_t *init_corewar(char **raw_input)
         c->padding[i] = 0;
     }
     c->nbr_dump_cycles = -1;
-    c->nbr_champions = 1;
+    c->nbr_champions = 0;
     c->input = parser_input(c, &raw_input[1]);
     if (!c->input || c->nbr_champions == 1 || c->nbr_champions > 4)
         return NULL;
