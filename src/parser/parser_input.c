@@ -48,8 +48,6 @@ int handle_optional_flags(char **arr, int *idx, input_t **input, corewar_t *c)
 static
 int handle_flags(char **arr, int *idx, input_t **input, corewar_t *c)
 {
-    if (my_strcmp(arr[(*idx)], "-dump") == 0)
-        return ERROR;
     if (handle_optional_flags(arr, idx, input, c) == ERROR)
         return ERROR;
     return SUCCESS;
@@ -58,6 +56,9 @@ int handle_flags(char **arr, int *idx, input_t **input, corewar_t *c)
 static
 int handle_dump(corewar_t *c, char **raw_input, int *idx)
 {
+    if (my_strcmp(raw_input[(*idx)], "-dump") == 0)
+        if (c->nbr_dump_cycles != -1)
+            return ERROR;
     if (my_strcmp(raw_input[(*idx)], "-dump") == 0) {
         (*idx)++;
         if (check_nbr_cycles(raw_input[(*idx)]) == ERROR)
@@ -97,11 +98,11 @@ input_t **parser_input(corewar_t *c, char **raw_input)
     input_t **input = malloc(sizeof(input_t *) * (c->nbr_champions + 1));
 
     input[c->nbr_champions - 1] = init_input();
-    if (handle_dump(c, raw_input, &idx) == ERROR)
-        return NULL;
     while (raw_input[idx]) {
         input = realloc_input_arr(c, input);
         if (!input)
+            return NULL;
+        if (handle_dump(c, raw_input, &idx) == ERROR)
             return NULL;
         if (handle_flags(raw_input, &idx, input, c) == ERROR)
             return NULL;

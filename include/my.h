@@ -38,7 +38,7 @@ typedef struct corewar_s {
     uint8_t arena[MEM_SIZE];
     uint8_t padding[MEM_SIZE];
     size_t nbr_champions;
-    size_t nbr_dump_cycles;
+    int nbr_dump_cycles;
     champions_t **champions;
     input_t **input;
 } corewar_t;

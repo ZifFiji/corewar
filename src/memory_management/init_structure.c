@@ -58,7 +58,7 @@ corewar_t *init_corewar(char **raw_input)
         c->arena[i] = 0;
         c->padding[i] = 0;
     }
-    c->nbr_dump_cycles = 0;
+    c->nbr_dump_cycles = -1;
     c->nbr_champions = 1;
     c->input = parser_input(c, &raw_input[1]);
     if (!c->input || c->nbr_champions == 1 || c->nbr_champions > 4)
