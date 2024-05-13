@@ -38,7 +38,7 @@ int handle_optional_flags(char **arr, int *idx, input_t **input, corewar_t *c)
         if (check_nbr_cycles(arr[(*idx)]) == ERROR)
             return ERROR;
         else {
-            input[c->nbr_champions - 1]->load_adress = my_getnbr(arr[(*idx)]);
+            input[c->nbr_champions]->load_adress = my_getnbr(arr[(*idx)]);
             (*idx)++;
         }
     }
@@ -48,6 +48,8 @@ int handle_optional_flags(char **arr, int *idx, input_t **input, corewar_t *c)
 static
 int handle_flags(char **arr, int *idx, input_t **input, corewar_t *c)
 {
+    if (!arr[(*idx)])
+        return ERROR;
     if (handle_optional_flags(arr, idx, input, c) == ERROR)
         return ERROR;
     return SUCCESS;
@@ -56,6 +58,8 @@ int handle_flags(char **arr, int *idx, input_t **input, corewar_t *c)
 static
 int handle_dump(corewar_t *c, char **raw_input, int *idx)
 {
+    if (!raw_input[(*idx)])
+        return ERROR;
     if (my_strcmp(raw_input[(*idx)], "-dump") == 0)
         if (c->nbr_dump_cycles != -1)
             return ERROR;
@@ -74,12 +78,12 @@ int handle_dump(corewar_t *c, char **raw_input, int *idx)
 static
 input_t **realloc_input_arr(corewar_t *c, input_t **input)
 {
-    if (c->nbr_champions > 1) {
-        input = realloc(input, sizeof(input_t *) * (c->nbr_champions + 1));
+    if (c->nbr_champions > 0) {
+        input = realloc(input, sizeof(input_t *) * (c->nbr_champions + 2));
         if (!(*input))
             return NULL;
-        input[c->nbr_champions - 1] = init_input();
-        input[c->nbr_champions] = NULL;
+        input[c->nbr_champions] = init_input();
+        input[c->nbr_champions + 1] = NULL;
     }
     return input;
 }
@@ -95,9 +99,9 @@ int handle_file(char *file_path)
 input_t **parser_input(corewar_t *c, char **raw_input)
 {
     int idx = 0;
-    input_t **input = malloc(sizeof(input_t *) * (c->nbr_champions + 1));
+    input_t **input = malloc(sizeof(input_t *) * (c->nbr_champions + 2));
 
-    input[c->nbr_champions - 1] = init_input();
+    input[c->nbr_champions] = init_input();
     while (raw_input[idx]) {
         input = realloc_input_arr(c, input);
         if (!input)
@@ -108,7 +112,7 @@ input_t **parser_input(corewar_t *c, char **raw_input)
             return NULL;
         if (handle_file(raw_input[idx]) == ERROR)
             return NULL;
-        input[c->nbr_champions - 1]->file_path = my_strdup(raw_input[idx]);
+        input[c->nbr_champions]->file_path = my_strdup(raw_input[idx]);
         idx ++;
         c->nbr_champions += 1;
     }
