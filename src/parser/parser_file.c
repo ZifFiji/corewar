@@ -52,27 +52,90 @@ int check_mnemonique(char *mnemo)
     return SUCCESS;
 }
 
-static
-void get_instructions(char *file, champions_t *c)
+char *int_to_bin(int num)
 {
-    int idx = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
+    char *binary = malloc(sizeof(char) * 9);
+
+    if (binary == NULL)
+        return NULL;
+    for (int i = 7; i >= 0; --i)
+        binary[7 - i] = (num & (1 << i)) ? '1' : '0';
+    binary[8] = '\0';
+    return binary;
+}
+
+int write_param_reg(char *file, champions_t *c, int j)
+{
+    c->instruction[c->nbr_instruction]->\
+    parameters[j] = my_strndup(file, T_REG);
+    c->idx += T_REG;
+    return 0;
+}
+
+int write_param_dir(char *file, champions_t *c, int j)
+{
+    c->instruction[c->nbr_instruction]->\
+    parameters[j] = my_strndup(file, T_DIR);
+    c->idx += T_DIR;
+    return 0;
+}
+
+int write_param_ind(char *file, champions_t *c, int j)
+{
+    c->instruction[c->nbr_instruction]->\
+    parameters[j] = my_strndup(file, T_IND);
+    c->idx += T_IND;
+    return 0;
+}
+
+static
+int get_param(char *file, const char *size, champions_t *c)
+{
+    int j = 0;
+
+    if (size == NULL || c == NULL || c->instruction == NULL)
+        return 84;
+    for (int i = 0; size[i] != '\0'; i += 2) {
+        if (size[i] == 0 && size[i + 1] == 0)
+            return 0;
+        if (size[i] == '0' && size[i + 1] == '1') {
+            write_param_reg(file, c, j);
+            j++;
+        }
+        if (size[i] == '1' && size[i + 1] == '1') {
+            write_param_ind(file, c, j);
+            j++;
+        }
+        if (size[i] == '1' && size[i + 1] == '0') {
+            write_param_dir(file, c, j);
+            j++;
+        }
+    }
+    return 0;
+}
+
+static
+int get_instructions(char *file, champions_t *c)
+{
+    char *params = NULL;
 
     c->instruction = malloc(sizeof(instructions_t *) * 2);
     c->instruction[c->nbr_instruction] = init_instruction();
-    // while (file[idx]) {
+    while (file[c->idx]) {
         c->instruction = realloc_instruction_arr(c->instruction, c);
-        c->instruction[c->nbr_instruction]->\
-        instruction = my_strdup(op_tab[file[idx] - 1].mnemonique);
-        idx++;
         if (check_mnemonique(c->instruction[c->nbr_instruction]->\
         instruction) == SUCCESS) {
-            c->instruction[c->nbr_instruction]->coding_byte = file[idx];
-            idx++;
+            c->instruction[c->nbr_instruction]->coding_byte = file[c->idx];
+            c->idx++;
         }
+        params = int_to_bin(file[c->idx]);
+        printf("params : %s\n", params);
+        if (get_param(file, params, c) == 84)
+            return 84;
         c->nbr_instruction++;
-    // }
-    printf("%s\n", c->instruction[c->nbr_instruction - 1]->instruction);
-    printf("%x\n", c->instruction[c->nbr_instruction - 1]->coding_byte);
+        printf("instruction : %s, size : %s\n", c->instruction[c->nbr_instruction - 1]->instruction, params);
+    }
+    return coding_byte;
 }
 
 static

@@ -26,6 +26,7 @@ typedef struct champions_s {
     instructions_t **instruction;
     size_t nbr_instruction;
     header_t header;
+    int idx;
 } champions_t;
 
 typedef struct input_s {
@@ -68,5 +69,6 @@ int my_strcmp(char const *s1, char const *s2);
 int my_putstr(char const *str, int n);
 char *my_getbuff(char const *file);
 char *my_strncpy(char *dest, char const *src, int n);
+char *my_strndup(char const *src, int n);
 
 #endif /* MY_H */

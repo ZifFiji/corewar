@@ -7,6 +7,7 @@
 
 #include "my.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -26,6 +27,7 @@ champions_t **init_champion(size_t nbr_champions)
         champ[i]->header.magic = 0;
         champ[i]->instruction = NULL;
         champ[i]->nbr_instruction = 0;
+        champ[i]->idx = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
     }
     return champ;
 }
