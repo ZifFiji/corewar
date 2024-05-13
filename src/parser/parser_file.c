@@ -115,7 +115,7 @@ int get_param(char *file, const char *size, champions_t *c)
 }
 
 static
-int get_instructions(char *file, champions_t *c)
+void get_instructions(char *file, champions_t *c)
 {
     char *params = NULL;
 
@@ -131,11 +131,10 @@ int get_instructions(char *file, champions_t *c)
         params = int_to_bin(file[c->idx]);
         printf("params : %s\n", params);
         if (get_param(file, params, c) == 84)
-            return 84;
+            return;
         c->nbr_instruction++;
         printf("instruction : %s, size : %s\n", c->instruction[c->nbr_instruction - 1]->instruction, params);
     }
-    return coding_byte;
 }
 
 static
