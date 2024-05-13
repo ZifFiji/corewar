@@ -58,6 +58,7 @@ input_t *init_input(void);
 
 // DISPLAY
 void display_help(void);
+void display_memory(uint8_t *arena);
 void display_champions(champions_t *champion);
 
 // LIBRARY
@@ -70,5 +71,7 @@ int my_putstr(char const *str, int n);
 char *my_getbuff(char const *file);
 char *my_strncpy(char *dest, char const *src, int n);
 char *my_strndup(char const *src, int n);
+int my_put_nbr_base(int nb, const char *base);
+void my_putchar(char c);
 
 #endif /* MY_H */

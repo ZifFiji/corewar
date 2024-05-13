@@ -20,6 +20,8 @@ SRC	=	my_strlen.c				\
 		my_char_is_alpha.c		\
 		my_isdigit.c			\
 		my_isalphanum.c			\
+		my_put_nbr_base.c		\
+		my_putchar.c			\
 
 OBJ	=	$(SRC:.c=.o)
 
