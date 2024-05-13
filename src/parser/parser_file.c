@@ -52,7 +52,7 @@ int check_mnemonique(char *mnemo)
     return SUCCESS;
 }
 
-char *int_to_bin(int num)
+char *int_to_bin(size_t num)
 {
     char *binary = malloc(sizeof(char) * 9);
 
@@ -123,17 +123,18 @@ void get_instructions(char *file, champions_t *c)
     c->instruction[c->nbr_instruction] = init_instruction();
     while (file[c->idx]) {
         c->instruction = realloc_instruction_arr(c->instruction, c);
+        c->instruction[c->nbr_instruction]->\
+        instruction = my_strdup(op_tab[file[c->idx] - 1].mnemonique);
         if (check_mnemonique(c->instruction[c->nbr_instruction]->\
         instruction) == SUCCESS) {
             c->instruction[c->nbr_instruction]->coding_byte = file[c->idx];
-            c->idx++;
-        }
-        params = int_to_bin(file[c->idx]);
-        printf("params : %s\n", params);
-        if (get_param(file, params, c) == 84)
-            return;
+            params = int_to_bin(c->instruction[c->nbr_instruction]->coding_byte);
+            get_param(file, params, c);
+            printf("params : %s\n", params);
+        } else
+            write_param_dir(file, c, 0);
+        printf("instruction : %s, size : %s\n", c->instruction[c->nbr_instruction]->instruction, params);
         c->nbr_instruction++;
-        printf("instruction : %s, size : %s\n", c->instruction[c->nbr_instruction - 1]->instruction, params);
     }
 }
 
