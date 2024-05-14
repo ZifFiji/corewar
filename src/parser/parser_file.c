@@ -153,17 +153,6 @@ void get_header(char *file, champions_t *c)
     printf("%d\n", c->header.prog_size);
 }
 
-static
-void display_instructions(champions_t *c)
-{
-    for (int i = 0; i != (int)c->nbr_instruction; i++) {
-        printf("instructions : %s", c->instruction[i]->instruction);
-        for (int j = 0; c->instruction[i]->nbr_params != j; j++)
-            printf(" params[%d] : %x ", j ,c->instruction[i]->parameters[j]);
-        printf("\n");
-    }
-}
-
 champions_t **parser_files(corewar_t *corewar, input_t **input)
 {
     char *file = NULL;
@@ -178,7 +167,6 @@ champions_t **parser_files(corewar_t *corewar, input_t **input)
             return NULL;
         get_header(file, c[i]);
         get_instructions(file, c[i]);
-//        display_instructions(c[i]);
         free(file);
     }
     return c;
