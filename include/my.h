@@ -19,6 +19,7 @@
 typedef struct instructions_s {
     char *instruction;
     int *type;
+    int nbr_params;
     size_t coding_byte;
     unsigned int *parameters;
 } instructions_t;

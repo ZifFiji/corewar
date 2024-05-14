@@ -22,8 +22,9 @@ char *get_file(char *file_path)
     stat(file_path, &s);
     if (s.st_size == 0)
         return NULL;
-    file = malloc(sizeof(char) * s.st_size);
+    file = malloc(sizeof(char) * s.st_size + 1);
     fread(file, 1, s.st_size, stream);
+    file[s.st_size] = '\0';
     fclose(stream);
     return file;
 }
@@ -102,20 +103,18 @@ int init_params(champions_t *c, int count_params)
 static
 void get_instructions_conditions(char *file, champions_t *c, char *params)
 {
-    int count_param = 0;
-
     if (check_mnemonique(c->instruction[c->nbr_instruction]->\
         instruction) == SUCCESS) {
         c->instruction[c->nbr_instruction]->coding_byte = file[c->idx];
         params = int_to_bin(c->instruction[c->nbr_instruction]->coding_byte);
-        count_param = count_params(params);
-        init_params(c, count_param);
+        c->instruction[c->nbr_instruction]->nbr_params = count_params(params);
+        init_params(c, c->instruction[c->nbr_instruction]->nbr_params);
         c->idx++;
         get_type_param(params, c);
         get_params(c, count_params(params), file);
     } else {
-        count_param = 1;
-        init_params(c, count_param);
+        c->instruction[c->nbr_instruction]->nbr_params = 1;
+        init_params(c, c->instruction[c->nbr_instruction]->nbr_params);
         if (my_strcmp(c->instruction[c->nbr_instruction]->\
             instruction, "live") == 0)
             write_param_dir(file, c, 0);
@@ -131,7 +130,8 @@ void get_instructions(char *file, champions_t *c)
 
     c->instruction = malloc(sizeof(instructions_t *) * 2);
     c->instruction[c->nbr_instruction] = init_instruction();
-    while (file[c->idx] != '\0') {
+    while (file[c->idx]) {
+        printf("file : %d, idx : %d\n", file[c->idx], c->idx);
         c->instruction = realloc_instruction_arr(c->instruction, c);
         c->instruction[c->nbr_instruction]->\
         instruction = my_strdup(op_tab[file[c->idx] - 1].mnemonique);
@@ -153,6 +153,17 @@ void get_header(char *file, champions_t *c)
     printf("%d\n", c->header.prog_size);
 }
 
+static
+void display_instructions(champions_t *c)
+{
+    for (int i = 0; i != (int)c->nbr_instruction; i++) {
+        printf("instructions : %s", c->instruction[i]->instruction);
+        for (int j = 0; c->instruction[i]->nbr_params != j; j++)
+            printf(" params[%d] : %x ", j ,c->instruction[i]->parameters[j]);
+        printf("\n");
+    }
+}
+
 champions_t **parser_files(corewar_t *corewar, input_t **input)
 {
     char *file = NULL;
@@ -167,6 +178,7 @@ champions_t **parser_files(corewar_t *corewar, input_t **input)
             return NULL;
         get_header(file, c[i]);
         get_instructions(file, c[i]);
+//        display_instructions(c[i]);
         free(file);
     }
     return c;
