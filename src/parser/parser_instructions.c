@@ -71,8 +71,7 @@ static
 int get_type_ind(const char *size, champions_t *c, int j, int i)
 {
     if ((size[i] == '1' && size[i + 1] == '1') ||
-    my_strcmp(c->instruction[c->nbr_instruction]->instruction, "sti")
-    == 0) {
+    c->instruction[c->nbr_instruction]->instruction - 1 == 10) {
         c->instruction[c->nbr_instruction]->type[j] = T_IND;
         return 0;
     }

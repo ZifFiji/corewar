@@ -18,7 +18,7 @@
 
 typedef struct instructions_s {
     uint8_t instruction;
-    uint8_t *parameters;
+    int *parameters;
     int *type;
     int nbr_params;
     size_t coding_byte;

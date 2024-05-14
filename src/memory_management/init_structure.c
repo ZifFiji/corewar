@@ -73,7 +73,7 @@ corewar_t *init_corewar(char **raw_input)
     c->nbr_dump_cycles = -1;
     c->nbr_champions = 0;
     c->input = parser_input(c, &raw_input[1]);
-    if (!c->input || c->nbr_champions == 1 || c->nbr_champions > 4)
+    if (!c->input || c->nbr_champions == 1|| c->nbr_champions > 4)
         return NULL;
     c->champions = parser_files(c, c->input);
     if (!c->champions)
