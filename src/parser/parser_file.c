@@ -44,12 +44,9 @@ instructions_t **realloc_instruction_arr(instructions_t **i, champions_t *c)
 }
 
 static
-int check_mnemonique(char *mnemo)
+int check_mnemonique(uint8_t mnemo)
 {
-    if (my_strcmp(mnemo, "zjmp") == 0 ||
-        my_strcmp(mnemo, "live") == 0 ||
-        my_strcmp(mnemo, "lfork") == 0 ||
-        my_strcmp(mnemo, "fork") == 0)
+    if (mnemo == 8 || mnemo == 0 || mnemo == 14 || mnemo == 11)
         return ERROR;
     return SUCCESS;
 }
@@ -104,8 +101,8 @@ int init_params(champions_t *c, int count_params)
 static
 void get_instructions_conditions(char *file, champions_t *c, char *params)
 {
-    if (check_mnemonique(op_tab[c->instruction[c->nbr_instruction]->\
-        instruction - 1].mnemonique) == SUCCESS) {
+    if (check_mnemonique(c->instruction[c->nbr_instruction]->\
+        instruction - 1) == SUCCESS) {
         c->instruction[c->nbr_instruction]->coding_byte = file[c->idx];
         params = int_to_bin(c->instruction[c->nbr_instruction]->coding_byte);
         c->instruction[c->nbr_instruction]->nbr_params = count_params(params);
@@ -131,7 +128,7 @@ void get_instructions(char *file, champions_t *c)
 
     c->instruction = malloc(sizeof(instructions_t *) * 2);
     c->instruction[c->nbr_instruction] = init_instruction();
-    while (file[c->idx]) {
+    while (file[c->idx] != '\0') {
         c->instruction = realloc_instruction_arr(c->instruction, c);
         c->instruction[c->nbr_instruction]->\
         instruction = file[c->idx];
@@ -167,6 +164,7 @@ champions_t **parser_files(corewar_t *corewar, input_t **input)
             return NULL;
         get_header(file, c[i]);
         get_instructions(file, c[i]);
+        display_instructions(c[i]);
         free(file);
     }
     return c;
