@@ -6,8 +6,9 @@
 */
 
 #include "my.h"
+#include <stdint.h>
 
-int execute_live(corewar_t *c, uint8_t const *args)
+int execute_live(corewar_t *c, size_t nbr_player, uint8_t *args)
 {
     int nbr_player = args[0];
 
