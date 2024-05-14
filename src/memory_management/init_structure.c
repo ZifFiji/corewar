@@ -32,6 +32,8 @@ champions_t **init_champion(size_t nbr_champions)
         for (int j = 0; j < REG_SIZE; j ++)
             champ[i]->registers[j] = 0;
         init_header(champ, i);
+        for (int j = 0; j < 2; j ++)
+            champ[i]->waittime[j] = 0;
         champ[i]->instruction = NULL;
         champ[i]->nbr_instruction = 0;
         champ[i]->program_counter = 0;
@@ -74,6 +76,9 @@ corewar_t *init_corewar(char **raw_input)
     c->input = parser_input(c, &raw_input[1]);
     if (!c->input || c->nbr_champions == 1 || c->nbr_champions > 4)
         return NULL;
+    c->player_status = malloc(sizeof(bool) * c->nbr_champions);
+    for (size_t i = 0; i < c->nbr_champions; i ++)
+        c->player_status[i] = true;
     c->champions = parse_files(c, c->input);
     if (!c->champions)
         return NULL;
