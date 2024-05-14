@@ -13,6 +13,7 @@
 
     #include <stdint.h>
     #include <stddef.h>
+    #include <stdbool.h>
 
     #include "op.h"
 
@@ -30,6 +31,7 @@ typedef struct champions_s {
     header_t header;
     uint8_t registers[REG_NUMBER];
     int idx;
+    int waittime[2];
     size_t program_counter;
     size_t carry;
 } champions_t;
@@ -46,6 +48,7 @@ typedef struct corewar_s {
     size_t nbr_champions;
     int nbr_dump_cycles;
     champions_t **champions;
+    bool *player_status;
     input_t **input;
 } corewar_t;
 
