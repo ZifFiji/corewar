@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-int execute_st(corewar_t *c, uint8_t *args, int nbr_player)
+int execute_st(corewar_t *c, uint8_t *args, size_t nbr_player)
 {
     if (!c || !args)
         return ERROR;

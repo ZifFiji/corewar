@@ -10,7 +10,7 @@
 /*
 ** It takes a direct or indirect value and loads it into a register
 */
-int execute_ld(corewar_t *c, uint8_t const *args, int nbr_player)
+int execute_ld(corewar_t *c, size_t nbr_player, uint8_t const *args)
 {
     if (!c || !args)
         return ERROR;
