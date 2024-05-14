@@ -45,7 +45,7 @@ instructions_t *init_instruction(void)
 {
     instructions_t *new = malloc(sizeof(instructions_t));
 
-    new->instruction = NULL;
+    new->instruction = 0;
     new->coding_byte = 0;
     new->parameters = NULL;
     new->type = NULL;

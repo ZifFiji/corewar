@@ -17,11 +17,11 @@
     #include "op.h"
 
 typedef struct instructions_s {
-    char *instruction;
+    uint8_t instruction;
+    uint8_t *parameters;
     int *type;
     int nbr_params;
     size_t coding_byte;
-    unsigned int *parameters;
 } instructions_t;
 
 typedef struct champions_s {
@@ -69,6 +69,7 @@ input_t *init_input(void);
 void display_help(void);
 void display_memory(uint8_t *arena);
 void display_champions(champions_t *champion);
+void display_instructions(champions_t *c);
 
 // LIBRARY
 int my_strlen(char const *str);

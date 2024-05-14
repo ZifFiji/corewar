@@ -7,6 +7,7 @@
 
 #include "my.h"
 #include "op.h"
+
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -103,8 +104,8 @@ int init_params(champions_t *c, int count_params)
 static
 void get_instructions_conditions(char *file, champions_t *c, char *params)
 {
-    if (check_mnemonique(c->instruction[c->nbr_instruction]->\
-        instruction) == SUCCESS) {
+    if (check_mnemonique(op_tab[c->instruction[c->nbr_instruction]->\
+        instruction - 1].mnemonique) == SUCCESS) {
         c->instruction[c->nbr_instruction]->coding_byte = file[c->idx];
         params = int_to_bin(c->instruction[c->nbr_instruction]->coding_byte);
         c->instruction[c->nbr_instruction]->nbr_params = count_params(params);
@@ -115,8 +116,8 @@ void get_instructions_conditions(char *file, champions_t *c, char *params)
     } else {
         c->instruction[c->nbr_instruction]->nbr_params = 1;
         init_params(c, c->instruction[c->nbr_instruction]->nbr_params);
-        if (my_strcmp(c->instruction[c->nbr_instruction]->\
-            instruction, "live") == 0)
+        if (c->instruction[c->nbr_instruction]->\
+        instruction - 1 == 0)
             write_param_dir(file, c, 0);
         else
             write_param_ind(file, c, 0);
@@ -131,10 +132,9 @@ void get_instructions(char *file, champions_t *c)
     c->instruction = malloc(sizeof(instructions_t *) * 2);
     c->instruction[c->nbr_instruction] = init_instruction();
     while (file[c->idx]) {
-        printf("file : %d, idx : %d\n", file[c->idx], c->idx);
         c->instruction = realloc_instruction_arr(c->instruction, c);
         c->instruction[c->nbr_instruction]->\
-        instruction = my_strdup(op_tab[file[c->idx] - 1].mnemonique);
+        instruction = file[c->idx];
         c->idx++;
         get_instructions_conditions(file, c, params);
         c->nbr_instruction++;
