@@ -20,6 +20,6 @@ uint8_t *args)
     my_putstr("(", 1);
     my_putstr(c->champions[player]->header.prog_name, 1);
     my_putstr(")", 1);
-    my_putstr(" is alive.\n", 1);
+    my_putstr("is alive.\n", 1);
     return SUCCESS;
 }

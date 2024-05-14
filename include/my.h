@@ -48,11 +48,14 @@ typedef struct corewar_s {
     size_t nbr_champions;
     int nbr_dump_cycles;
     champions_t **champions;
-    bool *player_status;
+    size_t *live_call;
+    bool *status_champ;
     input_t **input;
 } corewar_t;
 
+// COREWAR
 int corewar(int ac, char **av, char **env);
+int execution_corewar(corewar_t *corewar);
 
 // PARSER
 champions_t **parser_files(corewar_t *corewar, input_t **input);
@@ -73,6 +76,7 @@ void display_help(void);
 void display_memory(uint8_t *arena);
 void display_champions(champions_t *champion);
 void display_instructions(champions_t *c);
+void display_winner(int player, corewar_t *c);
 
 // LIBRARY
 int my_strlen(char const *str);
