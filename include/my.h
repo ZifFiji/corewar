@@ -19,8 +19,9 @@
 
 typedef struct instructions_s {
     char *instruction;
+    int *type;
     size_t coding_byte;
-    char **parameters;
+    unsigned int *parameters;
 } instructions_t;
 
 typedef struct champions_s {
