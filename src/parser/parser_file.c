@@ -64,115 +64,6 @@ char *int_to_bin(size_t num)
     return binary;
 }
 
-int write_param_reg(const char *file, champions_t *c, int j)
-{
-    c->instruction[c->nbr_instruction]->\
-    parameters[j] = file[c->idx];
-    c->idx += 1;
-    return 0;
-}
-
-int write_param_dir(const char *file, champions_t *c, int j)
-{
-    c->instruction[c->nbr_instruction]->\
-    parameters[j] += (file[c->idx] & 0x000000FF) << 24;
-    c->instruction[c->nbr_instruction]->\
-    parameters[j] += (file[c->idx + 1] & 0x000000FF) << 16;
-    c->instruction[c->nbr_instruction]->\
-    parameters[j] += (file[c->idx + 2] & 0x000000FF) << 8;
-    c->instruction[c->nbr_instruction]->\
-    parameters[j] += (file[c->idx + 3] & 0x000000FF) << 0;
-    c->idx += 4;
-    return 0;
-}
-
-int write_param_ind(const char *file, champions_t *c, int j)
-{
-    c->instruction[c->nbr_instruction]->\
-    parameters[j] += (file[c->idx] & 0x000000FF) << 8;
-    c->instruction[c->nbr_instruction]->\
-    parameters[j] += (file[c->idx + 1] & 0x000000FF) << 0;
-    c->idx += 2;
-    return 0;
-}
-
-int get_params(champions_t *c, int count_params , char const *file)
-{
-    int j = 0;
-
-    for (int i = 0; i != count_params; i++) {
-        if (c->instruction[c->nbr_instruction]->type[i] == T_REG) {
-            write_param_reg(file, c, j);
-            j++;
-        }
-        if (c->instruction[c->nbr_instruction]->type[i] == T_DIR) {
-            write_param_dir(file, c, j);
-            j++;
-        }
-        if (c->instruction[c->nbr_instruction]->type[i] == T_IND) {
-            write_param_ind(file, c, j);
-            j++;
-        }
-    }
-    return 0;
-}
-
-static
-int get_type_ind(const char *size, champions_t *c, int j, int i)
-{
-    if ((size[i] == '1' && size[i + 1] == '1') || my_strcmp
-    (c->instruction[c->nbr_instruction]->instruction, "sti") == 0) {
-        c->instruction[c->nbr_instruction]->type[j] = T_IND;
-        return 0;
-    }
-    return 84;
-}
-
-static
-int get_type_dir(const char *size, champions_t *c, int j, int i)
-{
-    if (size[i] == '1' && size[i + 1] == '0') {
-        c->instruction[c->nbr_instruction]->type[j] = T_DIR;
-        return 0;
-    }
-    return 84;
-}
-
-static
-int get_type_reg(const char *size, champions_t *c, int j, int i)
-{
-    if (size[i] == '0' && size[i + 1] == '1') {
-        c->instruction[c->nbr_instruction]->type[j] = T_REG;
-        return 0;
-    }
-    return 84;
-}
-
-static
-void get_type_param(const char *size, champions_t *c)
-{
-    int j = 0;
-
-    if (size == NULL || c == NULL || c->instruction == NULL)
-        return;
-    for (int i = 0; size[i] != '\0'; i += 2) {
-        if (size[i] == 0 && size[i + 1] == 0)
-            return;
-        if (get_type_reg(size, c, j, i) == 0) {
-            j++;
-            continue;
-        }
-        if (get_type_ind(size, c, j, i) == 0) {
-            j++;
-            continue;
-        }
-        if (get_type_dir(size, c, j, i) == 0) {
-            j++;
-            continue;
-        }
-    }
-}
-
 int count_params(const char *size)
 {
     int j = 0;
@@ -209,41 +100,43 @@ int init_params(champions_t *c, int count_params)
 }
 
 static
+void get_instructions_conditions(char *file, champions_t *c, char *params)
+{
+    int count_param = 0;
+
+    if (check_mnemonique(c->instruction[c->nbr_instruction]->\
+        instruction) == SUCCESS) {
+        c->instruction[c->nbr_instruction]->coding_byte = file[c->idx];
+        params = int_to_bin(c->instruction[c->nbr_instruction]->coding_byte);
+        count_param = count_params(params);
+        init_params(c, count_param);
+        c->idx++;
+        get_type_param(params, c);
+        get_params(c, count_params(params), file);
+    } else {
+        count_param = 1;
+        init_params(c, count_param);
+        if (my_strcmp(c->instruction[c->nbr_instruction]->\
+            instruction, "live") == 0)
+            write_param_dir(file, c, 0);
+        else
+            write_param_ind(file, c, 0);
+    }
+}
+
+static
 void get_instructions(char *file, champions_t *c)
 {
     char *params = NULL;
-    int count_param = 0;
 
     c->instruction = malloc(sizeof(instructions_t *) * 2);
     c->instruction[c->nbr_instruction] = init_instruction();
     while (file[c->idx] != '\0') {
-//        printf("idx : %d, file[idx] : %d\n",c->idx, file[c->idx]);
         c->instruction = realloc_instruction_arr(c->instruction, c);
         c->instruction[c->nbr_instruction]->\
         instruction = my_strdup(op_tab[file[c->idx] - 1].mnemonique);
         c->idx++;
-        if (check_mnemonique(c->instruction[c->nbr_instruction]->\
-        instruction) == SUCCESS) {
-            c->instruction[c->nbr_instruction]->coding_byte = file[c->idx];
-            params = int_to_bin(c->instruction[c->nbr_instruction]->coding_byte);
-            count_param = count_params(params);
-            init_params(c, count_param);
-//            printf("params : %s, count : %d\n", params, count_param);
-            c->idx++;
-            get_type_param(params, c);
-            get_params(c, count_params(params), file);
-        } else {
-            count_param = 1;
-            init_params(c, count_param);
-            if (my_strcmp(c->instruction[c->nbr_instruction]->\
-            instruction, "live") == 0)
-                write_param_dir(file, c, 0);
-            else
-                write_param_ind(file, c, 0);
-        }
-//        printf("instruction : %s\n", c->instruction[c->nbr_instruction]->instruction);
-//        for (int i = 0; i != count_param; i++)
-//            printf("parameters : %x\n", c->instruction[c->nbr_instruction]->parameters[i]);
+        get_instructions_conditions(file, c, params);
         c->nbr_instruction++;
     }
 }
@@ -260,7 +153,9 @@ void get_header(char *file, champions_t *c)
     printf("%d\n", c->header.prog_size);
 }
 
-champions_t **parse_files(corewar_t *corewar, input_t **input)
+input()
+
+champions_t **parser_files(corewar_t *corewar, input_t **input)
 {
     char *file = NULL;
     champions_t **c = NULL;

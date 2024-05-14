@@ -48,8 +48,12 @@ typedef struct corewar_s {
 int corewar(int ac, char **av, char **env);
 
 // PARSER
-champions_t **parse_files(corewar_t *corewar, input_t **input);
+champions_t **parser_files(corewar_t *corewar, input_t **input);
 input_t **parser_input(corewar_t *c, char **raw_input);
+void get_type_param(const char *size, champions_t *c);
+int get_params(champions_t *c, int count_params, char const *file);
+int write_param_ind(const char *file, champions_t *c, int j);
+int write_param_dir(const char *file, champions_t *c, int j);
 
 // INITIALISATION
 champions_t **init_champion(size_t nbr_champions);
