@@ -18,10 +18,11 @@
     #include "op.h"
 
 typedef struct instructions_s {
-    char *instruction;
+    uint8_t instruction;
+    uint8_t *parameters;
     int *type;
+    int nbr_params;
     size_t coding_byte;
-    unsigned int *parameters;
 } instructions_t;
 
 typedef struct champions_s {
@@ -54,8 +55,12 @@ typedef struct corewar_s {
 int corewar(int ac, char **av, char **env);
 
 // PARSER
-champions_t **parse_files(corewar_t *corewar, input_t **input);
+champions_t **parser_files(corewar_t *corewar, input_t **input);
 input_t **parser_input(corewar_t *c, char **raw_input);
+void get_type_param(const char *size, champions_t *c);
+int get_params(champions_t *c, int count_params, char const *file);
+int write_param_ind(const char *file, champions_t *c, int j);
+int write_param_dir(const char *file, champions_t *c, int j);
 
 // INITIALISATION
 champions_t **init_champion(size_t nbr_champions);
@@ -67,6 +72,7 @@ input_t *init_input(void);
 void display_help(void);
 void display_memory(uint8_t *arena);
 void display_champions(champions_t *champion);
+void display_instructions(champions_t *c);
 
 // LIBRARY
 int my_strlen(char const *str);

@@ -47,7 +47,7 @@ instructions_t *init_instruction(void)
 {
     instructions_t *new = malloc(sizeof(instructions_t));
 
-    new->instruction = NULL;
+    new->instruction = 0;
     new->coding_byte = 0;
     new->parameters = NULL;
     new->type = NULL;
@@ -80,7 +80,7 @@ corewar_t *init_corewar(char **raw_input)
     c->player_status = malloc(sizeof(bool) * c->nbr_champions);
     for (size_t i = 0; i < c->nbr_champions; i ++)
         c->player_status[i] = true;
-    c->champions = parse_files(c, c->input);
+    c->champions = parser_files(c, c->input);
     if (!c->champions)
         return NULL;
     return c;
