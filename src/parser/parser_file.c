@@ -153,7 +153,6 @@ void get_header(char *file, champions_t *c)
     printf("%d\n", c->header.prog_size);
 }
 
-
 champions_t **parser_files(corewar_t *corewar, input_t **input)
 {
     char *file = NULL;
