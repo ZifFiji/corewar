@@ -45,7 +45,7 @@ instructions_t *init_instruction(void)
 {
     instructions_t *new = malloc(sizeof(instructions_t));
 
-    new->instruction = NULL;
+    new->instruction = 0;
     new->coding_byte = 0;
     new->parameters = NULL;
     new->type = NULL;
@@ -75,7 +75,7 @@ corewar_t *init_corewar(char **raw_input)
     c->input = parser_input(c, &raw_input[1]);
     if (!c->input || c->nbr_champions == 1 || c->nbr_champions > 4)
         return NULL;
-    c->champions = parse_files(c, c->input);
+    c->champions = parser_files(c, c->input);
     if (!c->champions)
         return NULL;
     return c;

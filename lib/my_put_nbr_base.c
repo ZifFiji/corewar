@@ -27,6 +27,6 @@ int my_put_nbr_base(int nb, const char *base)
         return 0;
     my_put_nbr_base((nb / len), base);
     my_putchar(base[0 + (nb % len)]);
-    count = count_digit(nb , &count);
+    count = count_digit(nb, &count);
     return count;
 }
