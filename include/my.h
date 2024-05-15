@@ -67,6 +67,8 @@ input_t *init_input(void);
 
 //ARENA
 int padding(corewar_t *corewar, champions_t **c);
+int arena(champions_t **c, corewar_t *corewar);
+int check_mnemonique(uint8_t mnemo);
 
 // DISPLAY
 void display_help(void);
