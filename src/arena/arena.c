@@ -173,6 +173,8 @@ int arena(champions_t **c, corewar_t *corewar)
 
     for (size_t i = 0; corewar->nbr_champions != i; i++) {
         for (; corewar->padding[j] != i + 1; j++);
+        if (j % 2 != 0)
+            j++;
         j = write_all(c[i], corewar, j);
     }
     return 0;
