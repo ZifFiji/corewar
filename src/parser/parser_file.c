@@ -43,7 +43,6 @@ instructions_t **realloc_instruction_arr(instructions_t **i, champions_t *c)
     return i;
 }
 
-static
 int check_mnemonique(uint8_t mnemo)
 {
     if (mnemo == 8 || mnemo == 0 || mnemo == 14 || mnemo == 11)
@@ -164,7 +163,6 @@ champions_t **parser_files(corewar_t *corewar, input_t **input)
             return NULL;
         get_header(file, c[i]);
         get_instructions(file, c[i]);
-        display_instructions(c[i]);
         free(file);
     }
     return c;

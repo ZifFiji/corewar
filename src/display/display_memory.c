@@ -22,8 +22,7 @@ void display_memory(uint8_t *arena)
             i += 1;
         }
         j += 2;
-        if (j == 32) {
-            j = 0;
+        if (j % 32 == 0) {
             printf("\n");
         }
     }

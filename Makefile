@@ -9,6 +9,8 @@ SRC = ./src/main.c
 SRC += ./src/corewar.c
 SRC += ./src/op.c
 SRC += ./src/execution.c
+SRC += ./src/arena/padding.c
+SRC += ./src/arena/arena.c
 SRC += ./src/parser/parser_file.c
 SRC += ./src/parser/parser_input.c
 SRC	+= ./src/parser/parser_instructions.c
@@ -32,8 +34,9 @@ SRC += ./src/display/display_winner.c
 SRC += ./src/display/display_help.c
 SRC += ./src/display/display_champions.c
 SRC += ./src/display/display_memory.c
-SRC += ./src/display/display_instructions.c
 SRC += ./src/memory_management/init_structure.c
+SRC	+= ./src/parser/parser_instructions.c
+SRC += ./src/display/display_instructions.c
 
 OBJ = $(SRC:.c=.o)
 
