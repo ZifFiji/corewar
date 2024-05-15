@@ -32,6 +32,8 @@ SRC += ./src/display/display_memory.c
 SRC += ./src/memory_management/init_structure.c
 SRC	+= ./src/parser/parser_instructions.c
 SRC += ./src/display/display_instructions.c
+SRC += ./src/arena/padding.c
+SRC += ./src/arena/arena.c
 
 OBJ = $(SRC:.c=.o)
 

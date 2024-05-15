@@ -57,8 +57,8 @@ input_t *init_input(void)
     input_t *new = malloc(sizeof(input_t));
 
     new->file_path = NULL;
-    new->load_adress = 0;
-    new->prog_number = 0;
+    new->load_adress = -1;
+    new->prog_number = -1;
     return new;
 }
 
@@ -78,5 +78,6 @@ corewar_t *init_corewar(char **raw_input)
     c->champions = parser_files(c, c->input);
     if (!c->champions)
         return NULL;
+    padding(c, c->champions);
     return c;
 }

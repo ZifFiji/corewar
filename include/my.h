@@ -36,8 +36,8 @@ typedef struct champions_s {
 
 typedef struct input_s {
     char *file_path;
-    size_t prog_number;
-    size_t load_adress;
+    int prog_number;
+    int load_adress;
 } input_t;
 
 typedef struct corewar_s {
@@ -64,6 +64,9 @@ champions_t **init_champion(size_t nbr_champions);
 instructions_t *init_instruction(void);
 corewar_t *init_corewar(char **raw_input);
 input_t *init_input(void);
+
+//ARENA
+int padding(corewar_t *corewar, champions_t **c);
 
 // DISPLAY
 void display_help(void);

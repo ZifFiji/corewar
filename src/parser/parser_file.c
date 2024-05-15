@@ -164,7 +164,6 @@ champions_t **parser_files(corewar_t *corewar, input_t **input)
             return NULL;
         get_header(file, c[i]);
         get_instructions(file, c[i]);
-        display_instructions(c[i]);
         free(file);
     }
     return c;
