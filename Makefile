@@ -37,7 +37,35 @@ SRC += ./src/arena/arena.c
 
 OBJ = $(SRC:.c=.o)
 
-SRC_T = ./src/corewar.c \
+SRC_T += ./src/corewar.c
+SRC_T += ./src/op.c
+SRC_T += ./src/execution.c
+SRC_T += ./src/parser/parser_file.c
+SRC_T += ./src/parser/parser_input.c
+SRC_T += ./src/parser/parser_instructions.c
+SRC_T += ./src/instructions/and.c
+SRC_T += ./src/instructions/live.c
+SRC_T += ./src/instructions/add.c
+SRC_T += ./src/instructions/aff.c
+SRC_T += ./src/instructions/zjmp.c
+SRC_T += ./src/instructions/xor.c
+SRC_T += ./src/instructions/sti.c
+SRC_T += ./src/instructions/st.c
+SRC_T += ./src/instructions/lldi.c
+SRC_T += ./src/instructions/or.c
+SRC_T += ./src/instructions/lld.c
+SRC_T += ./src/instructions/lfork.c
+SRC_T += ./src/instructions/ldi.c
+SRC_T += ./src/instructions/ld.c
+SRC_T += ./src/instructions/fork.c
+SRC_T += ./src/instructions/sub.c
+SRC_T += ./src/display/display_winner.c
+SRC_T += ./src/display/display_help.c
+SRC_T += ./src/display/display_champions.c
+SRC_T += ./src/display/display_memory.c
+SRC_T += ./src/display/display_instructions.c
+SRC_T += ./src/memory_management/init_structure.c
+SRC_T += ./tests/tests.c
 
 NAME =	corewar
 
@@ -76,7 +104,7 @@ fclean: clean
 
 re: fclean all
 
-unit_tests:
+unit_tests: $(OBJ)
 	make -C $(DIRLIB)
 	gcc -o unit_tests $(SRC_T) $(DIRT) $(LDLIBS) $(CPPFLAGS) $(CRITFLAGS)
 
