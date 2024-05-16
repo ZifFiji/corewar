@@ -9,7 +9,7 @@
 
 #include <stdint.h>
 
-int execute_lfork(corewar_t *c, size_t nbr_player, uint8_t *args)
+int execute_lfork(champions_t  *c, size_t nbr_player, uint8_t *args)
 {
     my_printf("lfork\n");
     return SUCCESS;

@@ -8,19 +8,11 @@
 #include "my.h"
 #include <stdint.h>
 
-int execute_live(corewar_t *c, __attribute__((unused))size_t nbr_player,
+int execute_live(champions_t *c, __attribute__((unused))size_t nbr_player,
 uint8_t *args)
 {
     int player = args[0];
 
-    printf("%d\n", player);
-    if (player < 0 || player > 4)
-        return ERROR;
-    my_putstr("The player ", 1);
-    my_put_nbr_base(player, "0123456789");
-    my_putstr("(", 1);
-    my_putstr(c->champions[player]->header.prog_name, 1);
-    my_putstr(")", 1);
-    my_putstr("is alive.\n", 1);
+    my_printf("The player %d(%s) is alive.\n", player, c->header.prog_name);
     return SUCCESS;
 }

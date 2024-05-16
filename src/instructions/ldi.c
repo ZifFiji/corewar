@@ -8,7 +8,7 @@
 #include "my.h"
 #include <stdint.h>
 
-int execute_ldi(corewar_t *c, size_t nbr_player, uint8_t *args)
+int execute_ldi(champions_t  *c, size_t nbr_player, uint8_t *args)
 {
     my_printf("ldi\n");
     return SUCCESS;

@@ -25,4 +25,5 @@ void display_memory(uint8_t *arena)
             my_putchar('\n');
         }
     }
+    my_putchar('\n');
 }

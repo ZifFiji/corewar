@@ -12,7 +12,7 @@
 /*
 ** It takes a register and displays the character in the ASCII table
 */
-int execute_aff(corewar_t *c, uint8_t const *args)
+int execute_aff(champions_t  *c, uint8_t const *args)
 {
     int to_display = args[0] % 256;
 

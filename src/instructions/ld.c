@@ -10,13 +10,12 @@
 /*
 ** It takes a direct or indirect value and loads it into a register
 */
-int execute_ld(corewar_t *c, size_t nbr_player, uint8_t const *args)
+int execute_ld(champions_t  *c, size_t nbr_player, uint8_t const *args)
 {
     if (!c || !args)
         return ERROR;
     my_printf("ld\n");
     return SUCCESS;
-    c->champions[nbr_player]->registers[args[1]] = c->champions[nbr_player]->\
-    program_counter + args[0] % IDX_MOD;
+    c->registers[args[1]] = c->program_counter + args[0] % IDX_MOD;
     return SUCCESS;
 }

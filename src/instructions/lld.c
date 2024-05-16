@@ -9,7 +9,7 @@
 
 #include <stdint.h>
 
-int execute_lld(corewar_t *c, size_t nbr_player, uint8_t *args)
+int execute_lld(champions_t  *c, size_t nbr_player, uint8_t *args)
 {
     my_printf("lld\n");
     return SUCCESS;

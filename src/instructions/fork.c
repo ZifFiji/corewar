@@ -9,8 +9,8 @@
 
 #include <stdint.h>
 
-int execute_fork(corewar_t *c, size_t nbr_player, uint8_t *args)
+int execute_fork(champions_t  *c, size_t nbr_player, uint8_t *args)
 {
-    my_printf("fork");
+    my_printf("fork\n");
     return SUCCESS;
 }
