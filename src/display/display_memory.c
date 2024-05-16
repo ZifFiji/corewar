@@ -16,14 +16,14 @@ void display_memory(uint8_t *arena)
 
     for (int i = 0; i < MEM_SIZE; i ++) {
         if (arena[i] > 15) {
-            printf("%x ", arena[i]);
+            my_printf("%x ", arena[i]);
         } else {
-            printf("%x%x ", arena[i], arena[i + 1]);
+            my_printf("%x%x ", arena[i], arena[i + 1]);
             i += 1;
         }
         j += 2;
         if (j % 32 == 0) {
-            printf("\n");
+            my_putchar('\n');
         }
     }
 }

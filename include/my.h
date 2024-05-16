@@ -102,5 +102,9 @@ char *my_strncpy(char *dest, char const *src, int n);
 char *my_strndup(char const *src, int n);
 int my_put_nbr_base(int nb, const char *base);
 void my_putchar(char c);
+char *my_revstr(char *str);
+char *convert_int_to_hexa(int number, int size);
+char *put_zero(char *hexa, int base);
+int my_printf(const char *format, ...);
 
 #endif /* MY_H */

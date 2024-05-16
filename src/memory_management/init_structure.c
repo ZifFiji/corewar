@@ -60,8 +60,8 @@ input_t *init_input(void)
     input_t *new = malloc(sizeof(input_t));
 
     new->file_path = NULL;
-    new->load_adress = -1;
-    new->prog_number = -1;
+    new->load_adress = 0;
+    new->prog_number = 0;
     return new;
 }
 
@@ -84,7 +84,7 @@ corewar_t *init_corewar(char **raw_input)
     c->nbr_dump_cycles = -1;
     c->nbr_champions = 0;
     c->input = parser_input(c, &raw_input[1]);
-    if (!c->input || c->nbr_champions == 1 || c->nbr_champions > 4)
+    if (!c->input || c->nbr_champions == 0 || c->nbr_champions > 4)
         return NULL;
     c->live_call = malloc(sizeof(size_t) * c->nbr_champions);
     for (size_t i = 0; i < c->nbr_champions; i ++)

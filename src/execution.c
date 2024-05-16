@@ -25,12 +25,10 @@ int check_alive_champ(corewar_t *corewar)
 {
     size_t alive_champ = 0;
 
-    printf("nbr_champ = %d\n", corewar->nbr_champions);
     for (size_t i = 0; i < corewar->nbr_champions; i ++) {
         if (corewar->status_champ[i] == true)
             alive_champ += 1;
     }
-    printf("alive champ = %d\n", alive_champ);
     if (alive_champ > 1)
         return SUCCESS;
     return ERROR;

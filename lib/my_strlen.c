@@ -38,3 +38,14 @@ int my_intlen(long int nb)
     }
     return len;
 }
+
+int my_intlen_float(double nb)
+{
+    int count = 0;
+
+    while (nb < 1.0) {
+        nb = nb * 10.0;
+        count++;
+    }
+    return count;
+}
