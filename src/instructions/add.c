@@ -16,6 +16,6 @@ int execute_add(corewar_t *c, size_t nbr_player, int *args)
 {
     if (!c || !args)
         return ERROR;
-    printf("add\n");
+    my_printf("add\n");
     return SUCCESS;
 }

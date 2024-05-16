@@ -15,7 +15,7 @@ int execute_xor(corewar_t *c, uint8_t *args, int nbr_player)
 {
     if (!c || !args)
         return ERROR;
-    printf("xor\n");
+    my_printf("xor\n");
     return SUCCESS;
     c->champions[nbr_player]->registers[args[2]] = c->champions[nbr_player]->\
     registers[args[0]] ^ c->champions[nbr_player]->registers[args[1]];
