@@ -88,12 +88,13 @@ void execute_instruction(corewar_t *corewar, uint8_t instruction, size_t i)
         handle_live_counter(corewar, i, instruction);
         coding_byte = int_to_bin(corewar->arena[corewar->\
         champions[i]->program_counter]);
+        corewar->champions[i]->program_counter++;
         init_params(corewar->champions[i], op_tab[instruction - 1].nbr_args);
         get_type_param(coding_byte, corewar->champions[i]);
         args = get_args_arena(corewar->champions[i], corewar->arena, op_tab[instruction - 1].nbr_args, args);
     }
-    corewar->champions[i]->program_counter += op_tab[instruction - 1].nbr_args - 1;
-    exec_tab[instruction - 1].fptr(corewar, i, args);
+    my_printf("%d\n", instruction);
+    exec_tab[instruction - 1].fptr(corewar->champions[i], i, args);
 }
 
 /*
@@ -108,7 +109,8 @@ int compute_champions(corewar_t *corewar, size_t i, size_t *pc)
         return SUCCESS;
     if (corewar->champions[i]->waittime[0] == corewar->champions[i]->waittime[1]) {
         instruction = corewar->arena[(*pc) + 1];
-        (*pc) = ((*pc) + 1) % MEM_SIZE;
+        my_printf("instructions : %d, player : %d\n", instruction, i);
+        (*pc) = ((*pc) + 2) % MEM_SIZE;
         if (instruction >= 1 && instruction <= NBR_INSTRUCTION)
             execute_instruction(corewar, instruction, i);
     }
@@ -141,8 +143,8 @@ int execution_corewar(corewar_t *corewar)
         }
         cycle += 1;
     }
-    if (corewar->nbr_dump_cycles != -1)
-        display_memory(corewar->arena);
+//    if (corewar->nbr_dump_cycles != -1)
+//        display_memory(corewar->arena);
     my_putstr("Everybody won.\n", 1);
     return SUCCESS;
 }

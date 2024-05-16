@@ -13,6 +13,6 @@ uint8_t *args)
 {
     int player = args[0];
 
-    my_printf("The player %d(%s) is alive.\n", player, c->header.prog_name);
+    my_printf("The player %d(%s) is alive.\n", c->registers[0], c->header.prog_name);
     return SUCCESS;
 }
