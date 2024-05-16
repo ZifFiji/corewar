@@ -13,7 +13,6 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
-
 int write_param_reg(const char *file, champions_t *c, int j)
 {
     c->instruction[c->nbr_instruction]->\
