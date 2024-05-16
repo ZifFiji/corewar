@@ -94,8 +94,10 @@ int init_params(champions_t *c, int count_params)
             malloc(sizeof(int) * (count_params + 1));
     c->instruction[c->nbr_instruction]->type =
             malloc(sizeof(int) * (count_params + 1));
-    for (int i = 0; i != count_params; i++)
+    for (int i = 0; i != count_params; i++) {
         c->instruction[c->nbr_instruction]->parameters[i] = 0;
+        c->instruction[c->nbr_instruction]->type[i] = 0;
+    }
     return 0;
 }
 

@@ -74,6 +74,7 @@ instructions_t *init_instruction(void);
 corewar_t *init_corewar(char **raw_input);
 input_t *init_input(void);
 int init_params(champions_t *c, int count_params);
+int *init_args(size_t nbr_args);
 
 //ARENA
 int padding(corewar_t *corewar, champions_t **c);
