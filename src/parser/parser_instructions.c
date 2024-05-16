@@ -101,7 +101,6 @@ void get_type_param(const char *size, champions_t *c)
 {
     int j = 0;
 
-    c->nbr_instruction = 0;
     if (size == NULL || c == NULL || c->instruction == NULL)
         return;
     for (int i = 0; size[i] != '\0'; i += 2) {

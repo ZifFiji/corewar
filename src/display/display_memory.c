@@ -8,7 +8,6 @@
 #include "my.h"
 
 #include <stdint.h>
-#include <stdio.h>
 
 void display_memory(uint8_t *arena)
 {

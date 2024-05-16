@@ -76,6 +76,7 @@ void execute_instruction(corewar_t *corewar, uint8_t instruction, size_t i)
     int *args = NULL;
     char *coding_byte = NULL;
 
+    corewar->champions[i]->nbr_instruction = 0;
     set_cycle_to_wait(corewar->champions[i], instruction);
     args = malloc(sizeof(int) * op_tab[instruction - 1].nbr_args);
     if (instruction == 1 || instruction == 9 || instruction == 15 || instruction == 12) {
