@@ -30,7 +30,7 @@ champions_t **init_champion(size_t nbr_champions)
         return NULL;
     for (size_t i = 0; i < nbr_champions; i ++) {
         champ[i] = malloc(sizeof(champions_t));
-        champ[i]->registers[0] = i;
+        champ[i]->registers[0] = i + 1;
         for (int j = 1; j < REG_SIZE; j ++)
             champ[i]->registers[j] = 0;
         init_header(champ, i);
