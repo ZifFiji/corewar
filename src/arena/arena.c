@@ -24,38 +24,11 @@ int hexa_to_int(unsigned char hexa)
 }
 
 static
-char *int_to_hex_dir(int num)
-{
-    char *hex = NULL;
-
-    hex = convert_int_to_hexa(num, 8);
-    return hex;
-}
-
-static
-char *int_to_hex_ind(int num)
-{
-    char *hex = NULL;
-
-    hex = convert_int_to_hexa(num, 4);
-    return hex;
-}
-
-static
-char *int_to_hex_reg(int num)
-{
-    char *hex = NULL;
-
-    hex = convert_int_to_hexa(num, 2);
-    return hex;
-}
-
-static
 int write_reg(instructions_t *ins, corewar_t *corewar, int j, int k)
 {
     char *parms = NULL;
 
-    parms = int_to_hex_reg(ins->parameters[k]);
+    parms = convert_int_to_hexa(ins->parameters[k], 2);
     for (int i = 0; i != 2; i++) {
         corewar->arena[j] = hexa_to_int(parms[i]);
         j++;
@@ -69,7 +42,7 @@ int write_ind(instructions_t *ins, corewar_t *corewar, int j, int k)
 {
     char *parms = NULL;
 
-    parms = int_to_hex_ind(ins->parameters[k]);
+    parms = convert_int_to_hexa(ins->parameters[k], 4);
     for (int i = 0; i != 4; i++) {
         corewar->arena[j] = hexa_to_int(parms[i]);
         j++;
@@ -83,7 +56,7 @@ int write_dir(instructions_t *ins, corewar_t *corewar, int j, int k)
 {
     char *parms = NULL;
 
-    parms = int_to_hex_dir(ins->parameters[k]);
+    parms = convert_int_to_hexa(ins->parameters[k], 8);
     for (int i = 0; i != 8; i++) {
         corewar->arena[j] = hexa_to_int(parms[i]);
         j++;
@@ -101,7 +74,6 @@ int write_conditions_error(instructions_t *ins, corewar_t *corewar, int j)
     return j;
 }
 
-
 int write_conditions_succes(instructions_t *ins, corewar_t *corewar, int j)
 {
     corewar->arena[j] = ins->coding_byte;
@@ -117,7 +89,8 @@ int write_conditions_succes(instructions_t *ins, corewar_t *corewar, int j)
     return j;
 }
 
-int write_all(champions_t *c, corewar_t  *corewar, int j)
+static
+int write_all(champions_t *c, corewar_t *corewar, int j)
 {
     char *instruction = 0;
 

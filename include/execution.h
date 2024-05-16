@@ -9,7 +9,6 @@
     #define EXECUTION_H
 
     #define NBR_INSTRUCTION 15
-    
     #include "my.h"
     #include <stdint.h>
 
