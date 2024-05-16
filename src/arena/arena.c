@@ -95,7 +95,7 @@ int write_all(champions_t *c, corewar_t *corewar, int j)
     char *instruction = 0;
 
     for (size_t i = 0; c->nbr_instruction != i; i++) {
-        instruction = int_to_hex_reg(c->instruction[i]->instruction);
+        instruction = convert_int_to_hexa(c->instruction[i]->instruction, 2);
         corewar->arena[j] = hexa_to_int(instruction[0]);
         j++;
         corewar->arena[j] = hexa_to_int(instruction[1]);

@@ -75,7 +75,7 @@ corewar_t *init_corewar(char **raw_input)
     c->nbr_dump_cycles = -1;
     c->nbr_champions = 0;
     c->input = parser_input(c, &raw_input[1]);
-    if (!c->input || c->nbr_champions == 1 || c->nbr_champions > 4)
+    if (!c->input || c->nbr_champions == 0 || c->nbr_champions > 4)
         return NULL;
     c->live_call = malloc(sizeof(size_t) * c->nbr_champions);
     for (size_t i = 0; i < c->nbr_champions; i ++)
@@ -86,5 +86,7 @@ corewar_t *init_corewar(char **raw_input)
     c->champions = parser_files(c, c->input);
     if (!c->champions)
         return NULL;
+    padding(c, c->champions);
+    display_memory(c->arena);
     return c;
 }
