@@ -131,12 +131,7 @@ int write_conditions_error(instructions_t *ins, corewar_t *corewar, int j)
 
 int write_conditions_succes(instructions_t *ins, corewar_t *corewar, int j)
 {
-    char *coding_byte = NULL;
-
-    coding_byte = int_to_hex_reg(ins->coding_byte);
-    corewar->arena[j] = hexa_to_int(coding_byte[0]);
-    j++;
-    corewar->arena[j] = hexa_to_int(coding_byte[1]);
+    corewar->arena[j] = ins->coding_byte;
     j++;
     for (int k = 0; k != ins->nbr_params; k++) {
         if (ins->type[k] == T_REG)
@@ -175,6 +170,7 @@ int arena(champions_t **c, corewar_t *corewar)
         for (; corewar->padding[j] != i + 1; j++);
         if (j % 2 != 0)
             j++;
+        corewar->champions[i]->program_counter = j;
         j = write_all(c[i], corewar, j);
     }
     return 0;

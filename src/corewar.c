@@ -29,5 +29,7 @@ int corewar(int ac, char **av, char **env)
     corewar = init_corewar(av);
     if (!corewar)
         return ERROR;
+    padding(corewar, corewar->champions);
+    execution_corewar(corewar);
     return SUCCESS;
 }

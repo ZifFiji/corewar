@@ -13,6 +13,7 @@ uint8_t *args)
 {
     int player = args[0];
 
+    printf("%d\n", player);
     if (player < 0 || player > 4)
         return ERROR;
     my_putstr("The player ", 1);

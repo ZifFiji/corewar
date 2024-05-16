@@ -11,5 +11,6 @@
 
 int execute_fork(corewar_t *c, size_t nbr_player, uint8_t *args)
 {
+    printf("fork");
     return SUCCESS;
 }

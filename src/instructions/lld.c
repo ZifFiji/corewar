@@ -11,5 +11,6 @@
 
 int execute_lld(corewar_t *c, size_t nbr_player, uint8_t *args)
 {
+    printf("lld\n");
     return SUCCESS;
 }

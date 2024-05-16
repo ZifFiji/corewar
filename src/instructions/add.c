@@ -12,10 +12,10 @@
 ** It takes 3 registers as parameters, adds the first two,
 ** and stores the result in the third one. This operation modifies the carry.
 */
-int execute_add(corewar_t *c, uint8_t *args)
+int execute_add(corewar_t *c, size_t nbr_player, int *args)
 {
     if (!c || !args)
         return ERROR;
-    args[2] = args[1] + args[0];
+    printf("add\n");
     return SUCCESS;
 }

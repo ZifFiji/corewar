@@ -10,5 +10,6 @@
 
 int execute_sti(corewar_t *c, size_t nbr_player, uint8_t *args)
 {
+    printf("sti\n");
     return SUCCESS;
 }

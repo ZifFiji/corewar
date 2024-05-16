@@ -10,5 +10,6 @@
 
 int execute_ldi(corewar_t *c, size_t nbr_player, uint8_t *args)
 {
+    printf("ldi\n");
     return SUCCESS;
 }

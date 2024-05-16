@@ -15,6 +15,8 @@ int execute_or(corewar_t *c, uint8_t *args, int nbr_player)
 {
     if (!c || !args)
         return ERROR;
+    printf("or\n");
+    return SUCCESS;
     c->champions[nbr_player]->registers[args[2]] = c->champions[nbr_player]->\
     registers[args[0]] | c->champions[nbr_player]->registers[args[1]];
     return SUCCESS;

@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+static
 void init_header(champions_t **champ, size_t i)
 {
     for (size_t j = 0; j < PROG_NAME_LENGTH; j ++)
@@ -64,6 +65,14 @@ input_t *init_input(void)
     return new;
 }
 
+static
+void init_execution_var(corewar_t *c)
+{
+    c->winner = -1;
+    c->nbr_live = 0;
+    c->cycle_to_die = CYCLE_TO_DIE;
+}
+
 corewar_t *init_corewar(char **raw_input)
 {
     corewar_t *c = malloc(sizeof(corewar_t));
@@ -86,7 +95,6 @@ corewar_t *init_corewar(char **raw_input)
     c->champions = parser_files(c, c->input);
     if (!c->champions)
         return NULL;
-    padding(c, c->champions);
-    display_memory(c->arena);
+    init_execution_var(c);
     return c;
 }

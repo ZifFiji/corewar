@@ -10,5 +10,6 @@
 
 int execute_zjmp(corewar_t *c, size_t nbr_player, uint8_t *args)
 {
+    printf("zjmp\n");
     return SUCCESS;
 }

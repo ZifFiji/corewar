@@ -51,6 +51,9 @@ typedef struct corewar_s {
     size_t *live_call;
     bool *status_champ;
     input_t **input;
+    int winner;
+    size_t nbr_live;
+    size_t cycle_to_die;
 } corewar_t;
 
 // COREWAR
@@ -70,11 +73,15 @@ champions_t **init_champion(size_t nbr_champions);
 instructions_t *init_instruction(void);
 corewar_t *init_corewar(char **raw_input);
 input_t *init_input(void);
+int init_params(champions_t *c, int count_params);
 
 //ARENA
 int padding(corewar_t *corewar, champions_t **c);
 int arena(champions_t **c, corewar_t *corewar);
 int check_mnemonique(uint8_t mnemo);
+char *int_to_bin(size_t coding_byte);
+int count_params(const char *size);
+int *get_args_arena(champions_t *c, uint8_t *arena, size_t nbr_args, int *args);
 
 // DISPLAY
 void display_help(void);

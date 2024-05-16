@@ -15,26 +15,26 @@
 
 typedef struct execution_s {
     uint8_t instruction;
-    int (*fptr)(corewar_t *, size_t, uint8_t *);
+    int (*fptr)(corewar_t *, size_t, int *);
 } execution_t;
 
 // EXECUTION FUNCTION
-int execute_live(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_ld(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_st(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_add(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_sub(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_and(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_or(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_xor(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_zjmp(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_ldi(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_sti(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_fork(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_lld(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_lldi(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_lfork(corewar_t *c, size_t nbr_player, uint8_t *args);
-int execute_aff(corewar_t *c, size_t nbr_player, uint8_t *args);
+int execute_live(corewar_t *c, size_t nbr_player, int *args);
+int execute_ld(corewar_t *c, size_t nbr_player, int *args);
+int execute_st(corewar_t *c, size_t nbr_player, int *args);
+int execute_add(corewar_t *c, size_t nbr_player, int *args);
+int execute_sub(corewar_t *c, size_t nbr_player, int *args);
+int execute_and(corewar_t *c, size_t nbr_player, int *args);
+int execute_or(corewar_t *c, size_t nbr_player, int *args);
+int execute_xor(corewar_t *c, size_t nbr_player, int *args);
+int execute_zjmp(corewar_t *c, size_t nbr_player, int *args);
+int execute_ldi(corewar_t *c, size_t nbr_player, int *args);
+int execute_sti(corewar_t *c, size_t nbr_player, int *args);
+int execute_fork(corewar_t *c, size_t nbr_player, int *args);
+int execute_lld(corewar_t *c, size_t nbr_player, int *args);
+int execute_lldi(corewar_t *c, size_t nbr_player, int *args);
+int execute_lfork(corewar_t *c, size_t nbr_player, int *args);
+int execute_aff(corewar_t *c, size_t nbr_player, int *args);
 
 execution_t exec_tab[] = {
     {0, &execute_live},

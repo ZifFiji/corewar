@@ -81,12 +81,15 @@ int count_params(const char *size)
     return j;
 }
 
-static
 int init_params(champions_t *c, int count_params)
 {
     if (c == NULL || c->instruction == NULL ||
         c->instruction[c->nbr_instruction] == NULL)
         return 84;
+    if (c->instruction[c->nbr_instruction]->parameters)
+        free(c->instruction[c->nbr_instruction]->parameters);
+    if (c->instruction[c->nbr_instruction]->type)
+        free(c->instruction[c->nbr_instruction]->type);
     c->instruction[c->nbr_instruction]->parameters =
             malloc(sizeof(int) * (count_params + 1));
     c->instruction[c->nbr_instruction]->type =
@@ -144,9 +147,6 @@ void get_header(char *file, champions_t *c)
     my_strncpy(c->header.comment,
                &file[12 + PROG_NAME_LENGTH], COMMENT_LENGTH);
     c->header.prog_size = file[11 + PROG_NAME_LENGTH];
-    printf("%s\n", c->header.prog_name);
-    printf("%s\n", c->header.comment);
-    printf("%d\n", c->header.prog_size);
 }
 
 champions_t **parser_files(corewar_t *corewar, input_t **input)
