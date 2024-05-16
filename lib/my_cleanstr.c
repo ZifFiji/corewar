@@ -54,3 +54,21 @@ char **clean_tab(char **tab)
     }
     return new_tab;
 }
+
+char *my_revstr(char *str)
+{
+    int j = my_strlen(str) / 2;
+    int k = my_strlen(str);
+    char change = 0;
+
+    if (k == -1)
+        return NULL;
+    k -= 1;
+    for (int i = 0; i != j; i++) {
+        change = str[i];
+        str[i] = str[k];
+        str[k] = change;
+        k--;
+    }
+    return str;
+}
