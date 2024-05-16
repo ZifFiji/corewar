@@ -91,5 +91,6 @@ void my_putchar(char c);
 char *my_revstr(char *str);
 char *convert_int_to_hexa(int number, int size);
 char *put_zero(char *hexa, int base);
+int my_printf(const char *format, ...);
 
 #endif /* MY_H */

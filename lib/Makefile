@@ -23,6 +23,25 @@ SRC	=	my_strlen.c				\
 		my_put_nbr_base.c		\
 		my_putchar.c			\
 		my_hexa.c				\
+		my_put_nbr_base.c		\
+		my_put_nbr_basemaj.c   	\
+		my_printf.c				\
+		printfchar.c			\
+		printfint.c				\
+		printstr.c				\
+		printx.c				\
+		printmajx.c				\
+		printu.c				\
+		printo.c				\
+		printpercent.c			\
+		printfloat.c			\
+		my_putfloat.c			\
+		printpointer.c			\
+		my_putpointer.c			\
+		my_putexposant.c		\
+		printexposant.c			\
+		my_put_nbr.c			\
+
 
 OBJ	=	$(SRC:.c=.o)
 

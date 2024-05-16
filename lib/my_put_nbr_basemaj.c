@@ -1,36 +1,37 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_put_nbr_base
+** putnbrbase
 ** File description:
-** ez
+** fonctions
 */
 
 #include "my.h"
 #include <stdio.h>
+#include <unistd.h>
 
 static char make_hexa(int nb)
 {
     if (nb == 10)
-        return 'a';
+        return 'A';
     if (nb == 11)
-        return 'b';
+        return 'B';
     if (nb == 12)
-        return 'c';
+        return 'C';
     if (nb == 13)
-        return 'd';
+        return 'D';
     if (nb == 14)
-        return 'e';
+        return 'E';
     if (nb == 15)
-        return 'f';
+        return 'F';
 }
 
-int my_put_nbr_base(long long int nb, int base)
+int my_put_nbr_basemaj(long long int nb, int base)
 {
     if (nb < 0)
         return -1;
-    if (nb >= base)
-        my_put_nbr_base(nb / base, base);
-    if (nb % base >= 10 && base == 16)
+    if (nb >= 10)
+        my_put_nbr_basemaj(nb / base, base);
+    if (nb % base >= 10)
         my_putchar(make_hexa(nb % base));
     if (nb % base < 10)
         my_putchar((nb % base) + '0');
