@@ -11,14 +11,14 @@
 
 int execute_lfork(corewar_t *cw, champions_t *c, int ins, int *args)
 {
-    int new_pc = 0;
+    size_t new_pc = 0;
 
-    cw->champions = realloc(cw->champions, sizeof(champions_t *) * cw->\
-    nbr_champions + 2);
+    cw->champions = realloc(cw->champions, sizeof(champions_t *) * (cw->\
+    nbr_champions + 2));
     cw->status_champ = realloc(cw->status_champ, sizeof(bool) * (cw->\
     nbr_champions + 1));
     cw->status_champ[cw->nbr_champions - 1] = true;
-    cw->live_call = realloc(cw->live_call, sizeof(int) * (cw->\
+    cw->live_call = realloc(cw->live_call, sizeof(size_t) * (cw->\
     nbr_champions + 2));
     cw->live_call[cw->nbr_champions - 1] = 0;
     cw->champions[cw->nbr_champions] = malloc(sizeof(champions_t));
