@@ -29,10 +29,9 @@ int write_reg(instructions_t *ins, corewar_t *corewar, int j, int k)
     char *parms = NULL;
 
     parms = convert_int_to_hexa(ins->parameters[k], 2);
-    for (int i = 0; i != 2; i++) {
-        corewar->arena[j] = hexa_to_int(parms[i]);
-        j++;
-    }
+    corewar->arena[j] += hexa_to_int(parms[0]) << 4;
+    corewar->arena[j] += hexa_to_int(parms[1]);
+    j++;
     free(parms);
     return j;
 }
@@ -43,8 +42,9 @@ int write_ind(instructions_t *ins, corewar_t *corewar, int j, int k)
     char *parms = NULL;
 
     parms = convert_int_to_hexa(ins->parameters[k], 4);
-    for (int i = 0; i != 4; i++) {
-        corewar->arena[j] = hexa_to_int(parms[i]);
+    for (int i = 0; i != 4; i += 2) {
+        corewar->arena[j] += hexa_to_int(parms[i]) << 4;
+        corewar->arena[j] += hexa_to_int(parms[i + 1]);
         j++;
     }
     free(parms);
@@ -57,8 +57,9 @@ int write_dir(instructions_t *ins, corewar_t *corewar, int j, int k)
     char *parms = NULL;
 
     parms = convert_int_to_hexa(ins->parameters[k], 8);
-    for (int i = 0; i != 8; i++) {
-        corewar->arena[j] = hexa_to_int(parms[i]);
+    for (int i = 0; i != 8; i += 2) {
+        corewar->arena[j] += hexa_to_int(parms[i]) << 4;
+        corewar->arena[j] += hexa_to_int(parms[i + 1]);
         j++;
     }
     free(parms);
@@ -96,9 +97,8 @@ int write_all(champions_t *c, corewar_t *corewar, int j)
 
     for (size_t i = 0; c->nbr_instruction != i; i++) {
         instruction = convert_int_to_hexa(c->instruction[i]->instruction, 2);
-        corewar->arena[j] = hexa_to_int(instruction[0]);
-        j++;
-        corewar->arena[j] = hexa_to_int(instruction[1]);
+        corewar->arena[j] += hexa_to_int(instruction[0]);
+        corewar->arena[j] += hexa_to_int(instruction[1]);
         j++;
         if (check_mnemonique(c->instruction[i]->instruction - 1) == SUCCESS)
             j = write_conditions_succes(c->instruction[i], corewar, j);

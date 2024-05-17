@@ -173,8 +173,8 @@ int execution_corewar(corewar_t *corewar)
         }
         cycle += 1;
     }
-//    if (corewar->nbr_dump_cycles != -1)
-//        display_memory(corewar->arena);
+    if (corewar->nbr_dump_cycles != -1)
+        display_memory(corewar->arena);
     my_putstr("Everybody won.\n", 1);
     return SUCCESS;
 }
