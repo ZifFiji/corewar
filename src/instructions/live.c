@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-int execute_live(corewar_t *cw, champions_t *c, size_t nbr_player, int *args)
+int execute_live(corewar_t *cw, champions_t *c, int ins, int *args)
 {
     int reg = 0;
 

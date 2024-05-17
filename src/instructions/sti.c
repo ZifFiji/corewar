@@ -8,7 +8,7 @@
 #include "my.h"
 #include "op.h"
 
-int execute_sti(corewar_t *cw, champions_t *c, size_t nbr_player, int *args)
+int execute_sti(corewar_t *cw, champions_t *c, int ins, int *args)
 {
     int value = 0;
     int adress = 0;
@@ -18,7 +18,6 @@ int execute_sti(corewar_t *cw, champions_t *c, size_t nbr_player, int *args)
     if (args[0] < 1 || args[0] > REG_NUMBER)
         return ERROR;
     value = args[0];
-    value = 123;
     adress = c->program_counter + (((args[1] + args[2]) % IDX_MOD) % MEM_SIZE);
     cw->arena[adress] = (value & 0xFF000000) << 24;
     cw->arena[adress + 1] = (value & 0x00FF0000) << 16;

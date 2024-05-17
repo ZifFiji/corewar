@@ -12,7 +12,7 @@
 ** It takes 3 registers as parameters, adds the first two,
 ** and stores the result in the third one. This operation modifies the carry.
 */
-int execute_add(corewar_t *cw, champions_t *c, size_t nbr_player, int *args)
+int execute_add(corewar_t *cw, champions_t *c, int ins, int *args)
 {
     int sum = 0;
 

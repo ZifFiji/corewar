@@ -12,7 +12,7 @@
 /*
 ** It takes a register and displays the character in the ASCII table
 */
-int execute_aff(corewar_t *cw, champions_t *c, size_t nbr_player, int *args)
+int execute_aff(corewar_t *cw, champions_t *c, int ins, int *args)
 {
     if (!c || !args)
         return ERROR;

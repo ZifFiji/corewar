@@ -9,7 +9,7 @@
 
 #include <stdlib.h>
 
-int execute_lfork(corewar_t *cw, champions_t *c, size_t nbr_player, int *args)
+int execute_lfork(corewar_t *cw, champions_t *c, int ins, int *args)
 {
     int new_pc = 0;
 

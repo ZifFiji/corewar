@@ -10,7 +10,7 @@
 /*
 ** It takes a direct or indirect value and loads it into a register
 */
-int execute_ld(corewar_t *cw, champions_t *c, size_t nbr_player, int *args)
+int execute_ld(corewar_t *cw, champions_t *c, int ins, int *args)
 {
     int value = 0;
     int adress = 0;

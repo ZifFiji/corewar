@@ -24,7 +24,7 @@ champions_t *cpy_champ(champions_t *dest, const champions_t *src)
     return dest;
 }
 
-int execute_fork(corewar_t *cw, champions_t *c, size_t nbr_player, int *args)
+int execute_fork(corewar_t *cw, champions_t *c, int ins, int *args)
 {
     int new_pc = 0;
 
