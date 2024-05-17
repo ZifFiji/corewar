@@ -74,7 +74,7 @@ instructions_t *init_instruction(void);
 corewar_t *init_corewar(char **raw_input);
 input_t *init_input(void);
 int init_params(champions_t *c, int count_params);
-int *init_args(size_t nbr_args);
+int *init_args(size_t nbr_args, int *args);
 
 //ARENA
 int padding(corewar_t *corewar, champions_t **c);
@@ -93,6 +93,7 @@ void display_winner(int player, corewar_t *c);
 
 // LIBRARY
 int my_strlen(char const *str);
+char *my_strcpy(char *dest, char const *src);
 int my_isdigit(char c);
 int my_getnbr(char *str);
 char *my_strdup(char const *src);

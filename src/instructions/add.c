@@ -14,12 +14,15 @@
 */
 int execute_add(champions_t *c, size_t nbr_player, int *args)
 {
+    int sum = 0;
+
     if (!c || !args)
         return ERROR;
-    my_printf("add\n");
-//    c->champions[nbr_player]->registers[args[2]] = c->champions[nbr_player]->\
-//            registers[args[0]] + c->champions[nbr_player]->registers[args[1]];
-//    c->champions[nbr_player]->carry =
-//            (c->champions[nbr_player]->registers[args[2]] == 0 ? 1 : 0);
+    sum = args[0] + args[1];
+    c->registers[args[2]] = sum;
+    if (sum == 0)
+        c->carry = 1;
+    else
+        c->carry = 0;
     return SUCCESS;
 }

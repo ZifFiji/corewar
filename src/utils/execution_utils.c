@@ -52,12 +52,12 @@ int *get_args_arena(champions_t *c, uint8_t *arena, size_t nbr_args, int *args)
             get_register_value(arena, args, j, &(c->program_counter));
             j += 1;
         }
-        if (c->instruction[c->nbr_instruction]->type[i] == T_DIR) {
-            get_direct_value(arena, args, j, &(c->program_counter));
-            j++;
-        }
         if (c->instruction[c->nbr_instruction]->type[i] == T_IND) {
             get_indirect_value(arena, args, j, &(c->program_counter));
+            j++;
+        }
+        if (c->instruction[c->nbr_instruction]->type[i] == T_DIR) {
+            get_direct_value(arena, args, j, &(c->program_counter));
             j++;
         }
     }

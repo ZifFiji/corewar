@@ -7,10 +7,8 @@
 
 #include <stdlib.h>
 
-int *init_args(size_t nbr_args)
+int *init_args(size_t nbr_args, int *args)
 {
-    int *args = NULL;
-
     if (!nbr_args)
         return NULL;
     args = malloc(sizeof(int) * nbr_args);

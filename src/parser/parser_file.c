@@ -96,7 +96,9 @@ int init_params(champions_t *c, int count_params)
             malloc(sizeof(int) * (count_params + 1));
     for (int i = 0; i != count_params; i++) {
         c->instruction[c->nbr_instruction]->parameters[i] = 0;
+        c->instruction[c->nbr_instruction]->type[i] = 0;
     }
+    c->instruction[c->nbr_instruction]->type[count_params] = -1;
     return 0;
 }
 
@@ -107,6 +109,10 @@ void get_instructions_conditions(char *file, champions_t *c, char *params)
         instruction - 1) == SUCCESS) {
         c->instruction[c->nbr_instruction]->coding_byte = file[c->idx] & 0xFF;
         params = int_to_bin(c->instruction[c->nbr_instruction]->coding_byte);
+        if (c->instruction[c->nbr_instruction]->instruction == 11) {
+            free(params);
+            params = my_strdup("01111100");
+        }
         c->instruction[c->nbr_instruction]->nbr_params = count_params(params);
         init_params(c, c->instruction[c->nbr_instruction]->nbr_params);
         c->idx++;
