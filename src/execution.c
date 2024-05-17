@@ -113,7 +113,6 @@ void execute_instruction
 (corewar_t *corewar, uint8_t instruction, size_t i, size_t *pc)
 {
     int *args = NULL;
-    char *coding_byte = NULL;
 
     corewar->champions[i]->nbr_instruction = 0;
     set_cycle_to_wait(corewar->champions[i], instruction);
@@ -139,8 +138,8 @@ int compute_champions(corewar_t *corewar, size_t i, size_t *pc)
         return SUCCESS;
     if (corewar->champions[i]->waittime[0] == corewar->champions[i]->
     waittime[1]) {
-        instruction = corewar->arena[(*pc) + 1];
-        (*pc) = ((*pc) + 2) % MEM_SIZE;
+        instruction = corewar->arena[(*pc)];
+        (*pc) = ((*pc) + 1) % MEM_SIZE;
         my_printf("instructions : %d, player : %d\n", instruction, i);
         if (instruction >= 1 && instruction <= NBR_INSTRUCTION)
             execute_instruction(corewar, instruction, i, pc);

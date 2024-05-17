@@ -13,11 +13,16 @@
 */
 int execute_or(champions_t  *c, uint8_t *args, int nbr_player)
 {
+    int value = 0;
+
     if (!c || !args)
         return ERROR;
-    my_printf("or\n");
+    value = args[0] | args[1];
+    if (args[2] >= 1 && args[2] <= 15)
+        c->registers[args[2]] = value;
+    if (value == 0)
+        c->carry = 1;
+    else
+        c->carry = 0;
     return SUCCESS;
-//    c->champions[nbr_player]->registers[args[2]] = c->champions[nbr_player]->\
-//    registers[args[0]] | c->champions[nbr_player]->registers[args[1]];
-//    return SUCCESS;
 }
