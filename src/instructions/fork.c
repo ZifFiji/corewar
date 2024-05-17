@@ -26,7 +26,7 @@ champions_t *cpy_champ(champions_t *dest, const champions_t *src)
 
 int execute_fork(corewar_t *cw, champions_t *c, int ins, int *args)
 {
-    int new_pc = 0;
+    size_t new_pc = 0;
 
     cw->champions = realloc(cw->champions, sizeof(champions_t *) * (cw->\
     nbr_champions + 2));
@@ -35,7 +35,7 @@ int execute_fork(corewar_t *cw, champions_t *c, int ins, int *args)
     cw->status_champ[cw->nbr_champions - 1] = true;
     cw->live_call = realloc(cw->live_call, sizeof(size_t) * (cw->\
     nbr_champions + 2));
-    cw->live_call[cw->nbr_champions - 1] = 0;
+    cw->live_call[cw->nbr_champions - 1] = cw->live_call[cw->nbr_champions - 2];
     cw->champions[cw->nbr_champions] = malloc(sizeof(champions_t));
     cw->champions[cw->nbr_champions] = cpy_champ(cw->champions[cw->\
     nbr_champions], c);

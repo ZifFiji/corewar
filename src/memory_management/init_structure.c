@@ -134,11 +134,11 @@ corewar_t *init_corewar(char **raw_input)
     c->input = parser_input(c, &raw_input[1]);
     if (!c->input || c->nbr_champions == 1 || c->nbr_champions > 4)
         return NULL;
-    init_call_and_champ(c);
     c->champions = parser_files(c, c->input);
     if (!c->champions)
         return NULL;
     init_player(c);
     init_execution_var(c);
+    init_call_and_champ(c);
     return c;
 }

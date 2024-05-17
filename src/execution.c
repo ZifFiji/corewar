@@ -160,6 +160,7 @@ int execution_corewar(corewar_t *corewar)
     if (!corewar)
         return ERROR;
     while (cycle != corewar->nbr_dump_cycles) {
+
         if (check_alive_champ(corewar) == ERROR) {
             display_winner(corewar->winner, corewar);
             return SUCCESS;

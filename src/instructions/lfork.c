@@ -20,11 +20,11 @@ int execute_lfork(corewar_t *cw, champions_t *c, int ins, int *args)
     cw->status_champ[cw->nbr_champions - 1] = true;
     cw->live_call = realloc(cw->live_call, sizeof(size_t) * (cw->\
     nbr_champions + 2));
-    cw->live_call[cw->nbr_champions - 1] = 0;
+    cw->live_call[cw->nbr_champions - 1] = cw->live_call[cw->nbr_champions - 2];
     cw->champions[cw->nbr_champions] = malloc(sizeof(champions_t));
     cw->champions[cw->nbr_champions] = cpy_champ(cw->champions[cw->\
     nbr_champions], c);
-    new_pc = ((c->program_counter + args[1]) % MEM_SIZE);
+    new_pc = ((c->program_counter + args[0]) % MEM_SIZE);
     cw->champions[cw->nbr_champions]->program_counter = new_pc;
     cw->nbr_champions++;
     cw->champions[cw->nbr_champions] = NULL;

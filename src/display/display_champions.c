@@ -11,8 +11,8 @@
 
 void display_champions(champions_t *champion)
 {
-    printf("%s\n", champion->header.prog_name);
-    printf("%s\n", champion->header.comment);
-    printf("%d\n", champion->header.prog_size);
-    printf("%d\n", champion->header.magic);
+    my_printf("%s\n", champion->header.prog_name);
+    my_printf("%s\n", champion->header.comment);
+    my_printf("%d\n", champion->header.prog_size);
+    my_printf("%d\n", champion->header.magic);
 }
