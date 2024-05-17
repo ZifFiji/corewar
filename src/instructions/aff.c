@@ -12,12 +12,12 @@
 /*
 ** It takes a register and displays the character in the ASCII table
 */
-int execute_aff(champions_t  *c, uint8_t const *args)
+int execute_aff(corewar_t *cw, champions_t *c, size_t nbr_player, int *args)
 {
-    int to_display = args[0] % 256;
-
     if (!c || !args)
         return ERROR;
-    write(1, &to_display, 1);
+    if (args[0] < 1 || args[0] > REG_NUMBER)
+        return ERROR;
+    my_printf("%c\n", c->registers[args[0] - 1] % 256);
     return SUCCESS;
 }

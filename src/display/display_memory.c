@@ -20,7 +20,7 @@ void display_memory(uint8_t *arena)
             my_printf("%x ", arena[i]);
         }
         j += 2;
-        if (j % 32 == 0) {
+        if (j % 64 == 0) {
             my_putchar('\n');
         }
     }

@@ -60,6 +60,7 @@ typedef struct corewar_s {
 // COREWAR
 int corewar(int ac, char **av, char **env);
 int execution_corewar(corewar_t *);
+champions_t *cpy_champ(champions_t *dest, const champions_t *src);
 
 // PARSER
 champions_t **parser_files(corewar_t *corewar, input_t **input);

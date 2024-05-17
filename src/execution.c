@@ -10,7 +10,6 @@
 
 #include <stdint.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 static
 void check_live_instruction(size_t *nbr_live, size_t *cycle_to_die)
@@ -122,7 +121,7 @@ void execute_instruction
         args = execute_instruction_nocb(i, instruction, corewar);
     else
         args = execute_instruction_wcb(i, instruction, corewar, pc);
-    exec_tab[instruction - 1].fptr(corewar->champions[i], i, args);
+    exec_tab[instruction - 1].fptr(corewar, corewar->champions[i], i, args);
 }
 
 /*
@@ -163,6 +162,7 @@ int execution_corewar(corewar_t *corewar)
     while (cycle != corewar->nbr_dump_cycles) {
         if (check_alive_champ(corewar) == ERROR) {
             display_winner(corewar->winner, corewar);
+            return SUCCESS;
         }
         for (size_t i = 0; i < corewar->nbr_champions; i ++) {
             compute_champions(corewar, i, &(corewar->champions[i]->\

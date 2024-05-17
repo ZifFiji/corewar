@@ -15,26 +15,26 @@
 
 typedef struct execution_s {
     uint8_t instructions;
-    int (*fptr)(champions_t *, size_t, int *);
+    int (*fptr)(corewar_t *, champions_t *, size_t, int *);
 } execution_t;
 
 // EXECUTION FUNCTION
-int execute_live(champions_t *c, size_t nbr_player, int *args);
-int execute_ld(champions_t *c, size_t nbr_player, int *args);
-int execute_st(champions_t *c, size_t nbr_player, int *args);
-int execute_add(champions_t *c, size_t nbr_player, int *args);
-int execute_sub(champions_t *c, size_t nbr_player, int *args);
-int execute_and(champions_t *c, size_t nbr_player, int *args);
-int execute_or(champions_t *c, size_t nbr_player, int *args);
-int execute_xor(champions_t *c, size_t nbr_player, int *args);
-int execute_zjmp(champions_t *c, size_t nbr_player, int *args);
-int execute_ldi(champions_t *c, size_t nbr_player, int *args);
-int execute_sti(champions_t *c, size_t nbr_player, int *args);
-int execute_fork(champions_t *c, size_t nbr_player, int *args);
-int execute_lld(champions_t *c, size_t nbr_player, int *args);
-int execute_lldi(champions_t *c, size_t nbr_player, int *args);
-int execute_lfork(champions_t *c, size_t nbr_player, int *args);
-int execute_aff(champions_t *c, size_t nbr_player, int *args);
+int execute_live(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_ld(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_st(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_add(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_sub(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_and(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_or(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_xor(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_zjmp(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_ldi(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_sti(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_fork(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_lld(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_lldi(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_lfork(corewar_t *, champions_t *c, size_t nbr_player, int *args);
+int execute_aff(corewar_t *, champions_t *c, size_t nbr_player, int *args);
 
 execution_t exec_tab[] = {
     {0, &execute_live},

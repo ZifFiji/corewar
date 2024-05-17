@@ -12,7 +12,7 @@
 ** It takes 3 parameters, and performs a bitwise AND on the first two.
 ** The result is stored in the third one. This operation modifies the carry.
 */
-int execute_and(champions_t  *c, int nbr_player, uint8_t *args)
+int execute_and(corewar_t *cw, champions_t *c, size_t nbr_player, int *args)
 {
     int value = 0;
 

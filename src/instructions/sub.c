@@ -12,15 +12,12 @@
 ** It takes 3 registers as parameters, subtracts the first two, and stores the
 ** result in the third one. This operation modifies the carry.
 */
-int execute_sub(champions_t  *c, size_t nbr_player, uint8_t *args)
+int execute_sub(corewar_t *cw, champions_t *c, size_t nbr_player, int *args)
 {
     int sub = 0;
 
-    printf("Sub c %p args %p\n", c, args);
     if (!c || !args)
         return ERROR;
-    my_printf("sub\n");
-
     sub = args[0] + args[1];
     c->registers[args[2]] = sub;
     if (sub == 0)

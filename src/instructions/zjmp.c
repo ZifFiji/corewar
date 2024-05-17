@@ -8,7 +8,7 @@
 #include "my.h"
 #include <stdint.h>
 
-int execute_zjmp(champions_t  *c, size_t nbr_player, int *args)
+int execute_zjmp(corewar_t *cw, champions_t *c, size_t nbr_player, int *args)
 {
     int result = 0;
 
