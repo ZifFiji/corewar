@@ -6,6 +6,8 @@
 */
 
 #include "my.h"
+
+#include <stdio.h>
 #include <stdint.h>
 
 int execute_live(champions_t *c, __attribute__((unused))size_t nbr_player,

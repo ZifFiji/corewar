@@ -102,7 +102,6 @@ int init_params(champions_t *c, int count_params)
     return 0;
 }
 
-
 static
 void get_instructions_sucess(champions_t *c, char *params, char *file)
 {

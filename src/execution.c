@@ -10,6 +10,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 static
 void check_live_instruction(size_t *nbr_live, size_t *cycle_to_die)
@@ -117,13 +118,11 @@ void execute_instruction
     corewar->champions[i]->nbr_instruction = 0;
     set_cycle_to_wait(corewar->champions[i], instruction);
     if (instruction == 1 || instruction == 9 || instruction == 15
-    || instruction == 12) {
+    || instruction == 12)
         args = execute_instruction_nocb(i, instruction, corewar);
-    } else {
+    else
         args = execute_instruction_wcb(i, instruction, corewar, pc);
-    }
     exec_tab[instruction - 1].fptr(corewar->champions[i], i, args);
-    my_printf("%d\n", (*pc));
 }
 
 /*
@@ -140,7 +139,6 @@ int compute_champions(corewar_t *corewar, size_t i, size_t *pc)
     waittime[1]) {
         instruction = corewar->arena[(*pc)];
         (*pc) = ((*pc) + 1) % MEM_SIZE;
-        my_printf("instructions : %d, player : %d\n", instruction, i);
         if (instruction >= 1 && instruction <= NBR_INSTRUCTION)
             execute_instruction(corewar, instruction, i, pc);
     } else {

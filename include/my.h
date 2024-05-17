@@ -26,6 +26,7 @@ typedef struct instructions_s {
 } instructions_t;
 
 typedef struct champions_s {
+    int player;
     instructions_t **instruction;
     size_t nbr_instruction;
     header_t header;

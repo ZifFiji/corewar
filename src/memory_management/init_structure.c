@@ -41,6 +41,7 @@ champions_t **init_champion(size_t nbr_champions)
         champ[i]->program_counter = 0;
         champ[i]->carry = 1;
         champ[i]->idx = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
+        champ[i]->player = 0;
     }
     return champ;
 }
@@ -61,9 +62,43 @@ input_t *init_input(void)
     input_t *new = malloc(sizeof(input_t));
 
     new->file_path = NULL;
-    new->load_adress = 0;
-    new->prog_number = 0;
+    new->load_adress = -1;
+    new->prog_number = -1;
     return new;
+}
+
+static
+champions_t **buble_sort(champions_t **c, size_t nbr_champions, input_t **input)
+{
+    champions_t *temp = NULL;
+    input_t *input_temp = NULL;
+
+    for (size_t i = 0; i + 1 != nbr_champions; i++) {
+        if (c[i]->registers[0] > c[i + 1]->registers[0]) {
+            temp = c[i];
+            c[i] = c[i + 1];
+            c[i + 1] = temp;
+            input_temp = input[i];
+            input[i] = input[i + 1];
+            input[i + 1] = input_temp;
+        }
+    }
+    return c;
+}
+
+static
+void init_player(corewar_t *c)
+{
+    int count = 1;
+
+    for (size_t i = 0 ; c->nbr_champions != i; i++) {
+        if (c->input[i]->prog_number == -1 || count == c->input[i]->prog_number) {
+            c->champions[i]->registers[0] = count;
+            count++;
+        } else
+            c->champions[i]->registers[0] = c->input[i]->prog_number;
+    }
+    c->champions = buble_sort(c->champions, c->nbr_champions, c->input);
 }
 
 static
@@ -101,6 +136,7 @@ corewar_t *init_corewar(char **raw_input)
     c->champions = parser_files(c, c->input);
     if (!c->champions)
         return NULL;
+    init_player(c);
     init_execution_var(c);
     return c;
 }
