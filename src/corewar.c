@@ -30,6 +30,7 @@ int corewar(int ac, char **av, char **env)
     if (!corewar)
         return ERROR;
     padding(corewar, corewar->champions);
+    arena(corewar->champions, corewar);
     execution_corewar(corewar);
     return SUCCESS;
 }

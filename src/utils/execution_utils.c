@@ -11,6 +11,23 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+char *sti_to_bin(int coding_byte)
+{
+    char *params = NULL;
+    char *new_params = NULL;
+
+    params = int_to_bin(coding_byte);
+    if (my_strcmp(params, "01101000") == 0)
+        new_params = my_strdup("01111100");
+    if (my_strcmp(params, "01011000") == 0)
+        new_params = my_strdup("01011100");
+    if (my_strcmp(params, "01100100") == 0)
+        new_params = my_strdup("01110100");
+    if (my_strcmp(params, "01010100") == 0)
+        new_params = my_strdup(params);
+    return new_params;
+}
+
 static
 void get_register_value(uint8_t *arena, int *args, int j, size_t *pc)
 {

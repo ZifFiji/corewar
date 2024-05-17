@@ -98,7 +98,7 @@ int *execute_instruction_wcb
     args = init_args(op_tab[instruction - 1].nbr_args, args);
     handle_live_counter(corewar, i, instruction);
     if (instruction == 11)
-        coding_byte = my_strdup("01111100");
+        coding_byte = sti_to_bin(corewar->arena[*pc]);
     else
         coding_byte = int_to_bin(corewar->arena[*pc]);
     (*pc)++;

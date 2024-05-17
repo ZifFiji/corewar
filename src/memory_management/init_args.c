@@ -5,7 +5,16 @@
 ** init_args
 */
 
+#include "../../include/my.h"
+
 #include <stdlib.h>
+
+int check_mnemonique(uint8_t mnemo)
+{
+    if (mnemo == 8 || mnemo == 0 || mnemo == 14 || mnemo == 11)
+        return ERROR;
+    return SUCCESS;
+}
 
 int *init_args(size_t nbr_args, int *args)
 {

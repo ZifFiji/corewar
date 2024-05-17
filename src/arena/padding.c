@@ -34,6 +34,5 @@ int padding(corewar_t *corewar, champions_t **c)
             corewar->padding[j] = i + 1;
         save_size = MEM_SIZE + total;
     }
-    arena(c, corewar);
     return 0;
 }

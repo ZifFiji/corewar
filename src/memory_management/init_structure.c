@@ -68,7 +68,8 @@ input_t *init_input(void)
 }
 
 static
-champions_t **buble_sort(champions_t **c, size_t nbr_champions, input_t **input)
+champions_t **buble_sort
+(champions_t **c, size_t nbr_champions, input_t **input)
 {
     champions_t *temp = NULL;
     input_t *input_temp = NULL;
@@ -91,8 +92,9 @@ void init_player(corewar_t *c)
 {
     int count = 1;
 
-    for (size_t i = 0 ; c->nbr_champions != i; i++) {
-        if (c->input[i]->prog_number == -1 || count == c->input[i]->prog_number) {
+    for (size_t i = 0; c->nbr_champions != i; i++) {
+        if (c->input[i]->prog_number == -1 || count == c->input[i]->
+        prog_number) {
             c->champions[i]->registers[0] = count;
             count++;
         } else

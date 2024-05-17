@@ -68,6 +68,7 @@ void get_type_param(const char *size, champions_t *c);
 int get_params(champions_t *c, int count_params, char const *file);
 int write_param_ind(const char *file, champions_t *c, int j);
 int write_param_dir(const char *file, champions_t *c, int j);
+char *sti_to_bin(int coding_byte);
 
 // INITIALISATION
 champions_t **init_champion(size_t nbr_champions);

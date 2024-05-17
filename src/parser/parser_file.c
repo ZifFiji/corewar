@@ -43,13 +43,6 @@ instructions_t **realloc_instruction_arr(instructions_t **i, champions_t *c)
     return i;
 }
 
-int check_mnemonique(uint8_t mnemo)
-{
-    if (mnemo == 8 || mnemo == 0 || mnemo == 14 || mnemo == 11)
-        return ERROR;
-    return SUCCESS;
-}
-
 char *int_to_bin(size_t num)
 {
     char *binary = malloc(sizeof(char) * 9);
