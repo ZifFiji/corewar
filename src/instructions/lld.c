@@ -14,7 +14,6 @@ int execute_lld(corewar_t *cw, champions_t *c, int ins, int *args)
 
     if (!c || !args)
         return ERROR;
-    c->carry = 1;
     if (args[1] < 1 || args[1] > REG_NUMBER)
         return ERROR;
     adress = ((c->program_counter + args[0]) % MEM_SIZE);
@@ -23,5 +22,9 @@ int execute_lld(corewar_t *cw, champions_t *c, int ins, int *args)
         adress++;
     }
     c->registers[args[1] - 1] = value;
+    if (c->carry == 1)
+        c->carry = 0;
+    else
+        c->carry = 1;
     return SUCCESS;
 }

@@ -18,11 +18,7 @@ int execute_sub(corewar_t *cw, champions_t *c, int ins, int *args)
 
     if (!c || !args)
         return ERROR;
-    sub = args[0] + args[1];
+    sub = args[0] - args[1];
     c->registers[args[2]] = sub;
-    if (sub == 0)
-        c->carry = 1;
-    else
-        c->carry = 0;
     return SUCCESS;
 }

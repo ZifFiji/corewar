@@ -31,9 +31,12 @@ int execute_lldi(corewar_t *cw, champions_t *c, int ins, int *args)
 {
     if (!c || !args)
         return ERROR;
-    c->carry = 1;
     if (args[2] < 1 || args[2] > REG_NUMBER)
         return ERROR;
     add_value(cw, c, args);
+    if (c->carry == 1)
+        c->carry = 0;
+    else
+        c->carry = 1;
     return SUCCESS;
 }

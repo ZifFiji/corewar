@@ -121,7 +121,7 @@ void execute_instruction
         args = execute_instruction_nocb(i, instruction, corewar);
     else
         args = execute_instruction_wcb(i, instruction, corewar, pc);
-    exec_tab[instruction - 1].fptr(corewar, corewar->champions[i], i, args);
+    exec_tab[instruction - 1].fptr(corewar, corewar->champions[i], 0, args);
 }
 
 /*
