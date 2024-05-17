@@ -102,7 +102,7 @@ void get_instructions_sucess(champions_t *c, char *params, char *file)
     params = int_to_bin(c->instruction[c->nbr_instruction]->coding_byte);
     if (c->instruction[c->nbr_instruction]->instruction == 11) {
         free(params);
-        params = my_strdup("01111100");
+        params = sti_to_bin(c->instruction[c->nbr_instruction]->coding_byte);
     }
     c->instruction[c->nbr_instruction]->nbr_params = count_params(params);
     init_params(c, c->instruction[c->nbr_instruction]->nbr_params);
