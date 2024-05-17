@@ -14,7 +14,7 @@ int execute_lfork(corewar_t *cw, champions_t *c, size_t nbr_player, int *args)
     int new_pc = 0;
 
     cw->champions = realloc(cw->champions, sizeof(champions_t *) * cw->\
-    nbr_champions + 1);
+    nbr_champions + 2);
     cw->status_champ = realloc(cw->status_champ, sizeof(bool) * (cw->\
     nbr_champions + 1));
     cw->status_champ[cw->nbr_champions - 1] = true;
