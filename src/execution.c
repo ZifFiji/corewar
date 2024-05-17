@@ -71,29 +71,57 @@ void get_type_no_coding_byte(champions_t *c, uint8_t ins)
 }
 
 static
-void execute_instruction(corewar_t *corewar, uint8_t instruction, size_t i, size_t *pc)
+int *execute_instruction_nocb
+(size_t i, uint8_t instruction, corewar_t *corewar)
+{
+    int *args = NULL;
+    int nbr_args = op_tab[instruction - 1].nbr_args;
+
+    args = init_args(op_tab[instruction - 1].nbr_args, args);
+    handle_live_counter(corewar, i, instruction);
+    init_params(corewar->champions[i], nbr_args);
+    get_type_no_coding_byte(corewar->champions[i], instruction - 1);
+    args = get_args_arena
+            (corewar->champions[i], corewar->arena, nbr_args, args);
+    return args;
+}
+
+static
+int *execute_instruction_wcb
+(size_t i, uint8_t instruction, corewar_t *corewar, size_t *pc)
+{
+    char *coding_byte = NULL;
+    int *args = NULL;
+    int nbr_args = op_tab[instruction - 1].nbr_args;
+
+    args = init_args(op_tab[instruction - 1].nbr_args, args);
+    handle_live_counter(corewar, i, instruction);
+    if (instruction == 11)
+        coding_byte = my_strdup("01111100");
+    else
+        coding_byte = int_to_bin(corewar->arena[*pc]);
+    (*pc)++;
+    init_params(corewar->champions[i], nbr_args);
+    get_type_param(coding_byte, corewar->champions[i]);
+    args = get_args_arena
+            (corewar->champions[i], corewar->arena, nbr_args, args);
+    return args;
+}
+
+static
+void execute_instruction
+(corewar_t *corewar, uint8_t instruction, size_t i, size_t *pc)
 {
     int *args = NULL;
     char *coding_byte = NULL;
 
     corewar->champions[i]->nbr_instruction = 0;
     set_cycle_to_wait(corewar->champions[i], instruction);
-    args = init_args(op_tab[instruction - 1].nbr_args, args);
-    if (instruction == 1 || instruction == 9 || instruction == 15 || instruction == 12) {
-        handle_live_counter(corewar, i, instruction);
-        init_params(corewar->champions[i], op_tab[instruction - 1].nbr_args);
-        get_type_no_coding_byte(corewar->champions[i], instruction - 1);
-        args = get_args_arena(corewar->champions[i], corewar->arena, op_tab[instruction - 1].nbr_args, args);
+    if (instruction == 1 || instruction == 9 || instruction == 15
+    || instruction == 12) {
+        args = execute_instruction_nocb(i, instruction, corewar);
     } else {
-        handle_live_counter(corewar, i, instruction);
-        if (instruction == 11)
-            coding_byte = my_strdup("01111100");
-        else
-            coding_byte = int_to_bin(corewar->arena[*pc]);
-        (*pc)++;
-        init_params(corewar->champions[i], op_tab[instruction - 1].nbr_args);
-        get_type_param(coding_byte, corewar->champions[i]);
-        args = get_args_arena(corewar->champions[i], corewar->arena, op_tab[instruction - 1].nbr_args, args);
+        args = execute_instruction_wcb(i, instruction, corewar, pc);
     }
     exec_tab[instruction - 1].fptr(corewar->champions[i], i, args);
     my_printf("%d\n", (*pc));
@@ -109,14 +137,14 @@ int compute_champions(corewar_t *corewar, size_t i, size_t *pc)
 
     if (corewar->status_champ[i] == false)
         return SUCCESS;
-    if (corewar->champions[i]->waittime[0] == corewar->champions[i]->waittime[1]) {
+    if (corewar->champions[i]->waittime[0] == corewar->champions[i]->
+    waittime[1]) {
         instruction = corewar->arena[(*pc) + 1];
         (*pc) = ((*pc) + 2) % MEM_SIZE;
         my_printf("instructions : %d, player : %d\n", instruction, i);
         if (instruction >= 1 && instruction <= NBR_INSTRUCTION)
             execute_instruction(corewar, instruction, i, pc);
-    }
-    else {
+    } else {
         corewar->champions[i]->waittime[0] += 1;
         corewar->live_call[i] += 1;
     }

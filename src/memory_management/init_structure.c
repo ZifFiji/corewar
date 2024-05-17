@@ -74,6 +74,16 @@ void init_execution_var(corewar_t *c)
     c->cycle_to_die = CYCLE_TO_DIE;
 }
 
+void init_call_and_champ(corewar_t *c)
+{
+    c->live_call = malloc(sizeof(size_t) * c->nbr_champions);
+    c->status_champ = malloc(sizeof(bool) * c->nbr_champions);
+    for (size_t i = 0; i < c->nbr_champions; i ++) {
+        c->live_call[i] = 0;
+        c->status_champ[i] = true;
+    }
+}
+
 corewar_t *init_corewar(char **raw_input)
 {
     corewar_t *c = malloc(sizeof(corewar_t));
@@ -87,12 +97,7 @@ corewar_t *init_corewar(char **raw_input)
     c->input = parser_input(c, &raw_input[1]);
     if (!c->input || c->nbr_champions == 1 || c->nbr_champions > 4)
         return NULL;
-    c->live_call = malloc(sizeof(size_t) * c->nbr_champions);
-    for (size_t i = 0; i < c->nbr_champions; i ++)
-        c->live_call[i] = 0;
-    c->status_champ = malloc(sizeof(bool) * c->nbr_champions);
-    for (size_t i = 0; i < c->nbr_champions; i ++)
-        c->status_champ[i] = true;
+    init_call_and_champ(c);
     c->champions = parser_files(c, c->input);
     if (!c->champions)
         return NULL;

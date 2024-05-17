@@ -82,7 +82,7 @@ int arena(champions_t **c, corewar_t *corewar);
 int check_mnemonique(uint8_t mnemo);
 char *int_to_bin(size_t coding_byte);
 int count_params(const char *size);
-int *get_args_arena(champions_t *c, uint8_t *arena, size_t nbr_args, int *args);
+int *get_args_arena(champions_t *c, uint8_t *arena, size_t nbr_args, int *);
 
 // DISPLAY
 void display_help(void);

@@ -102,31 +102,33 @@ int init_params(champions_t *c, int count_params)
     return 0;
 }
 
+
 static
-void get_instructions_conditions(char *file, champions_t *c, char *params)
+void get_instructions_sucess(champions_t *c, char *params, char *file)
 {
-    if (check_mnemonique(c->instruction[c->nbr_instruction]->\
-        instruction - 1) == SUCCESS) {
-        c->instruction[c->nbr_instruction]->coding_byte = file[c->idx] & 0xFF;
-        params = int_to_bin(c->instruction[c->nbr_instruction]->coding_byte);
-        if (c->instruction[c->nbr_instruction]->instruction == 11) {
-            free(params);
-            params = my_strdup("01111100");
-        }
-        c->instruction[c->nbr_instruction]->nbr_params = count_params(params);
-        init_params(c, c->instruction[c->nbr_instruction]->nbr_params);
-        c->idx++;
-        get_type_param(params, c);
-        get_params(c, count_params(params), file);
-    } else {
-        c->instruction[c->nbr_instruction]->nbr_params = 1;
-        init_params(c, c->instruction[c->nbr_instruction]->nbr_params);
-        if (c->instruction[c->nbr_instruction]->\
-        instruction - 1 == 0)
-            write_param_dir(file, c, 0);
-        else
-            write_param_ind(file, c, 0);
+    c->instruction[c->nbr_instruction]->coding_byte = file[c->idx] & 0xFF;
+    params = int_to_bin(c->instruction[c->nbr_instruction]->coding_byte);
+    if (c->instruction[c->nbr_instruction]->instruction == 11) {
+        free(params);
+        params = my_strdup("01111100");
     }
+    c->instruction[c->nbr_instruction]->nbr_params = count_params(params);
+    init_params(c, c->instruction[c->nbr_instruction]->nbr_params);
+    c->idx++;
+    get_type_param(params, c);
+    get_params(c, count_params(params), file);
+}
+
+static
+void get_instructions_error(champions_t *c, char *file)
+{
+    c->instruction[c->nbr_instruction]->nbr_params = 1;
+    init_params(c, c->instruction[c->nbr_instruction]->nbr_params);
+    if (c->instruction[c->nbr_instruction]->\
+        instruction - 1 == 0)
+        write_param_dir(file, c, 0);
+    else
+        write_param_ind(file, c, 0);
 }
 
 static
@@ -141,7 +143,11 @@ void get_instructions(char *file, champions_t *c)
         c->instruction[c->nbr_instruction]->\
         instruction = file[c->idx];
         c->idx++;
-        get_instructions_conditions(file, c, params);
+        if (check_mnemonique(c->instruction[c->nbr_instruction]->\
+        instruction - 1) == SUCCESS)
+            get_instructions_sucess(c, params, file);
+        else
+            get_instructions_error(c, file);
         c->nbr_instruction++;
     }
 }
